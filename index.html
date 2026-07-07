@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Buying — Own It Easy | Ontario Mortgage Calculators & Guidance</title>
+<meta name="description" content="Free Ontario mortgage calculators: affordability with OSFI stress test, payment with CMHC insurance, and closing costs with 2026 Toronto land transfer tax. Own It Easy.">
+<meta property="og:title" content="Home Buying — Own It Easy">
+<meta property="og:description" content="Ontario mortgage calculators and white-glove guidance. Affordability, payments, closing costs — all in one place.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#FFF8F3;--bg2:#FFF0E6;--white:#FFFFFF;
+  --coral:#F97316;--coral-dark:#C2410C;--coral-light:#FFEDD5;
+  --teal:#0891B2;--teal-light:#CFFAFE;--teal-dark:#0E7490;
+  --navy:#1C1917;--slate:#57534E;--muted:#A8A29E;--border:#E7E5E4;
+  --shadow:0 1px 3px rgba(0,0,0,0.06),0 4px 16px rgba(249,115,22,0.08);
+  --shadow-lg:0 4px 6px rgba(0,0,0,0.04),0 10px 40px rgba(249,115,22,0.12);
+}
+html{scroll-behavior:smooth}
+section,footer{scroll-margin-top:80px}
+body{background:var(--bg);color:var(--navy);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;word-wrap:break-word}
+img,svg{max-width:100%}
+.svc-icon svg,.tip,.toggle-item input[type=checkbox]{flex-shrink:0}
+::selection{background:var(--coral-light);color:var(--coral-dark)}
+
+/* NAV */
+nav{background:var(--white);border-bottom:2px solid var(--coral-light);position:sticky;top:0;z-index:100;padding:0 4%;height:68px;display:flex;align-items:center;justify-content:space-between;gap:0.75rem;box-shadow:0 2px 12px rgba(249,115,22,0.08)}
+.nav-brand{display:flex;flex-direction:column;line-height:1.1;text-decoration:none;flex-shrink:0}
+.nav-brand-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--coral-dark)}
+.nav-brand-tag{font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted)}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--slate);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}
+.nav-links a:hover{color:var(--coral)}
+.nav-cta{background:var(--coral);color:#fff;font-size:0.8rem;font-weight:700;padding:9px 16px;border-radius:50px;text-decoration:none;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;gap:6px;flex-shrink:1;min-width:0}
+.nav-cta:hover{background:var(--coral-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(249,115,22,0.35)}
+.nav-cta svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2;flex-shrink:0}
+.nav-cta-text{overflow:hidden;text-overflow:ellipsis}
+
+/* HAMBURGER NAV */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--navy);border-radius:2px}
+@media(max-width:700px){
+  .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:var(--white);flex-direction:column;gap:0;padding:0.5rem 0;box-shadow:0 8px 20px rgba(0,0,0,0.08);z-index:150;border-bottom:2px solid var(--coral-light)}
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%}
+  .nav-links a{display:block;padding:0.9rem 1.5rem;font-size:0.92rem}
+  .hamburger{display:flex}
+  nav{padding:0 4%;gap:0.5rem}
+}
+
+@media(max-width:960px){
+  .hero-inner{gap:2rem}
+  .hero h1{font-size:clamp(1.9rem,4.5vw,2.8rem)}
+}
+@media(max-width:920px){.nav-cta-text{display:none}.nav-cta{padding:9px 11px}}
+
+/* HERO */
+.hero{padding:80px 5% 70px;background:var(--white);position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-40px;right:-60px;width:400px;height:400px;background:radial-gradient(circle,var(--coral-light) 0%,transparent 70%);pointer-events:none;z-index:0}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr minmax(300px,400px);gap:3rem;align-items:center;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--coral-light);color:var(--coral-dark);border-radius:50px;padding:5px 14px;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--coral);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,4vw,3.4rem);color:var(--navy);line-height:1.15;margin-bottom:1.2rem;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--coral)}
+.hero-sub{color:var(--slate);font-size:1rem;line-height:1.7;margin-bottom:2rem;max-width:480px}
+.hero-btns{display:flex;gap:0.75rem;flex-wrap:wrap}
+.btn-primary{background:var(--coral);color:#fff;font-size:0.88rem;font-weight:700;padding:13px 26px;border-radius:50px;text-decoration:none;transition:all 0.2s;white-space:nowrap}
+.btn-primary:hover{background:var(--coral-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(249,115,22,0.4)}
+.btn-outline{background:transparent;color:var(--navy);font-size:0.88rem;font-weight:500;padding:12px 26px;border-radius:50px;text-decoration:none;border:1.5px solid var(--border);transition:all 0.2s;white-space:nowrap}
+.btn-outline:hover{border-color:var(--coral);color:var(--coral)}
+
+/* HERO CARD */
+.hero-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:1.8rem;box-shadow:var(--shadow-lg);position:relative}
+.hero-card::before{content:'LIVE ESTIMATE';position:absolute;top:-12px;left:20px;background:var(--coral);color:#fff;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;padding:3px 10px;border-radius:50px}
+.hc-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin:0.3rem 0 1rem}
+.hc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin-bottom:1rem}
+.hc-stat{background:var(--bg);border-radius:10px;padding:0.75rem}
+.hc-stat-label{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:2px}
+.hc-stat-val{font-size:0.95rem;font-weight:700}
+.hc-result{background:linear-gradient(135deg,var(--coral),#FB923C);border-radius:12px;padding:1rem;text-align:center;color:#fff}
+.hc-result-label{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.85;margin-bottom:4px}
+.hc-result-val{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700}
+.hc-sub-results{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.75rem}
+.hc-sub{background:var(--bg);border-radius:8px;padding:0.6rem}
+.hc-sub-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+.hc-sub-val{font-size:0.85rem;font-weight:700}
+
+/* SECTIONS */
+section{padding:80px 5%}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-eyebrow{font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--coral);margin-bottom:0.6rem}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);margin-bottom:0.8rem;line-height:1.2;font-weight:700}
+.section-sub{color:var(--slate);font-size:0.95rem;line-height:1.7;max-width:540px;margin-bottom:3rem}
+
+/* TOOLTIP */
+.tip{position:relative;display:inline-flex;align-items:center;justify-content:center;width:15px;height:15px;background:var(--coral-light);color:var(--coral-dark);border-radius:50%;font-size:0.62rem;font-weight:700;cursor:help;margin-left:4px;vertical-align:middle}
+.tip .tiptext{display:none;position:absolute;bottom:130%;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;font-size:0.72rem;font-weight:400;line-height:1.5;padding:8px 12px;border-radius:8px;width:min(220px,72vw);max-width:260px;z-index:50;text-transform:none;letter-spacing:0;pointer-events:none}
+.tip:hover .tiptext,.tip.tap-open .tiptext{display:block}
+.tip:hover .tiptext,.tip.show .tiptext{visibility:visible;opacity:1}
+
+/* CALC */
+#calculators{background:var(--bg)}
+.calc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.calc-card{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2rem;box-shadow:var(--shadow);transition:all 0.3s;position:relative;overflow:visible}
+.calc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;border-radius:20px 20px 0 0;background:linear-gradient(90deg,var(--coral),var(--teal))}
+.calc-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
+.calc-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;background:var(--coral-light);color:var(--coral-dark);border-radius:50%;font-size:0.78rem;font-weight:700;margin-bottom:0.75rem}
+.calc-card h3{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:0.3rem}
+.calc-desc{font-size:0.8rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5}
+.form-group{margin-bottom:0.85rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.65rem}
+.form-label{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;font-size:0.72rem;font-weight:600;color:var(--slate);margin-bottom:4px;letter-spacing:0.04em;text-transform:uppercase;gap:0.2rem}
+.prefill-tag{font-size:0.62rem;background:var(--coral-light);color:var(--coral-dark);padding:1px 6px;border-radius:50px;font-weight:700;letter-spacing:0.06em}
+.form-input,.form-select{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-size:0.88rem;color:var(--navy);font-family:'Inter',sans-serif;transition:border-color 0.2s,background 0.2s;outline:none;appearance:none}
+.form-input:focus,.form-select:focus{border-color:var(--coral);background:var(--white);box-shadow:0 0 0 3px rgba(249,115,22,0.1)}
+.form-input.prefilled{border-color:rgba(249,115,22,0.4);background:#fff7ed}
+.form-input.autofilled{border-color:var(--teal);background:#ecfeff}
+.form-hint{font-size:0.68rem;color:var(--muted);margin-top:3px;line-height:1.4}
+.form-hint.notice{color:var(--teal-dark);font-weight:600}
+.stress-display{background:linear-gradient(135deg,var(--coral-light),#FEF3C7);border:1.5px solid rgba(249,115,22,0.25);border-radius:10px;padding:10px 14px;margin-bottom:0.85rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0.3rem}
+.stress-label{font-size:0.72rem;font-weight:700;color:var(--coral-dark);text-transform:uppercase;letter-spacing:0.06em}
+.stress-val{font-size:1.1rem;font-weight:700;color:var(--coral-dark)}
+.toggle-row{display:flex;gap:1.2rem;margin-bottom:0.85rem;flex-wrap:wrap}
+.toggle-item{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:0.82rem;color:var(--slate);font-weight:500;user-select:none}
+.toggle-item input[type=checkbox]{appearance:none;width:36px;height:20px;background:var(--border);border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;outline:none}
+.toggle-item input[type=checkbox]:checked{background:var(--coral)}
+.toggle-item input[type=checkbox]::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+.toggle-item input[type=checkbox]:checked::after{transform:translateX(16px)}
+.calc-btn{width:100%;background:linear-gradient(135deg,var(--coral),#FB923C);color:#fff;font-size:0.85rem;font-weight:700;padding:12px;border-radius:50px;border:none;cursor:pointer;margin-top:1rem;transition:all 0.2s;font-family:'Inter',sans-serif}
+.calc-btn:hover{opacity:0.9;transform:translateY(-1px);box-shadow:0 8px 24px rgba(249,115,22,0.35)}
+.calc-results{margin-top:1.2rem;background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:1.2rem;display:none}
+.calc-results.active{display:block}
+.result-line{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);gap:0.25rem 0.5rem}
+.result-line:last-child{border-bottom:none;margin-top:4px;padding-top:8px}
+.result-key{font-size:0.78rem;color:var(--slate)}
+.result-val{font-size:0.85rem;font-weight:600;text-align:right}
+.result-val.featured{color:var(--coral-dark);font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700}
+.result-error{color:#DC2626;font-size:0.8rem;text-align:center;padding:0.5rem;background:#FEF2F2;border-radius:8px}
+
+/* SERVICES */
+#services{background:var(--white);border-top:2px solid var(--coral-light)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-bottom:2rem}
+.service-card{background:var(--bg);border:1.5px solid var(--border);border-radius:18px;padding:2rem;transition:all 0.3s;position:relative;overflow:hidden}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--coral),var(--teal));opacity:0;transition:opacity 0.3s}
+.service-card:hover{background:var(--white);border-color:var(--coral);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.service-card:hover::after{opacity:1}
+.svc-icon{width:48px;height:48px;background:var(--coral-light);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
+.svc-icon svg{width:22px;height:22px;stroke:var(--coral-dark);fill:none;stroke-width:1.8}
+.service-card h3{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
+.service-card p{font-size:0.82rem;color:var(--slate);line-height:1.65}
+.journey-card{cursor:pointer}
+.jc-chevron{font-size:0.7rem;color:var(--coral);transition:transform 0.25s;display:inline-block;margin-left:4px}
+.journey-card.open .jc-chevron{transform:rotate(180deg)}
+.jc-detail{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.journey-card.open .jc-detail{max-height:600px;margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--border)}
+.jc-detail ul{list-style:none;margin:0.5rem 0}
+.jc-detail li{font-size:0.8rem;color:var(--slate);line-height:1.6;padding-left:1.1rem;position:relative;margin-bottom:0.6rem}
+.jc-detail li::before{content:'\2713';position:absolute;left:0;color:var(--teal);font-weight:700}
+.jc-promise{font-size:0.78rem;color:var(--coral-dark);font-weight:600;background:var(--coral-light);border-radius:8px;padding:0.7rem 0.9rem;margin-top:0.5rem}
+.commercial-banner{background:linear-gradient(135deg,var(--teal-light),#E0F2FE);border:1.5px solid rgba(8,145,178,0.25);border-radius:16px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.commercial-banner h4{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--teal-dark);margin-bottom:0.2rem}
+.commercial-banner p{font-size:0.83rem;color:var(--slate)}
+.commercial-banner a{background:var(--teal);color:#fff;font-size:0.82rem;font-weight:700;padding:10px 22px;border-radius:50px;text-decoration:none;white-space:nowrap;transition:all 0.2s}
+.commercial-banner a:hover{background:var(--teal-dark)}
+
+/* CONTACT FORM */
+#contact-form{background:var(--bg)}
+.contact-wrap{max-width:640px;margin:0 auto;background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:2.5rem;box-shadow:var(--shadow)}
+.contact-wrap .form-input,.contact-wrap textarea{margin-bottom:0}
+textarea.form-input{resize:vertical;min-height:110px;line-height:1.5}
+.form-success{display:none;background:#ECFDF5;border:1.5px solid #10B981;color:#065F46;border-radius:10px;padding:1rem;font-size:0.85rem;text-align:center;margin-top:1rem}
+.form-success.active{display:block}
+
+/* FOOTER */
+footer{background:var(--navy);color:var(--white);padding:60px 5% 40px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(249,115,22,0.12) 0%,transparent 70%)}
+.footer-inner{max-width:1200px;margin:0 auto;position:relative}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:3rem;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,0.08)}
+.footer-brand-name{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:700;color:var(--coral-light);margin-bottom:0.3rem}
+.footer-tagline{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1rem}
+.footer-desc{font-size:0.83rem;color:rgba(255,255,255,0.5);line-height:1.7}
+.footer-col-title{font-size:0.72rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:1rem}
+.footer-contact{display:flex;flex-direction:column;gap:0.6rem}
+.footer-contact a{font-size:0.88rem;color:rgba(255,255,255,0.7);text-decoration:none;transition:color 0.2s}
+.footer-contact a:hover{color:var(--coral-light)}
+.footer-bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}
+.footer-copy{font-size:0.75rem;color:rgba(255,255,255,0.3)}
+.footer-disclaimer{font-size:0.72rem;color:rgba(255,255,255,0.25);line-height:1.6;max-width:480px;text-align:right}
+
+
+
+/* LEAD MAGNET */
+.lead-magnet{background:linear-gradient(135deg,var(--coral),#FB923C);border-radius:20px;padding:2.5rem;color:#fff;display:grid;grid-template-columns:1.3fr 1fr;gap:2rem;align-items:center;max-width:1000px;margin:0 auto}
+.lead-magnet h3{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:0.5rem}
+.lead-magnet p{font-size:0.9rem;opacity:0.92;line-height:1.6}
+.lm-form{display:flex;gap:0.5rem;flex-wrap:wrap}
+@media(max-width:480px){.lm-form{flex-direction:column}.lm-form input,.lm-form button{width:100%}}
+.lm-form input{flex:1;min-width:200px;border:none;border-radius:50px;padding:12px 18px;font-size:0.88rem;font-family:'Inter',sans-serif;outline:none}
+.lm-form button{background:var(--navy);color:#fff;border:none;border-radius:50px;padding:12px 24px;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity 0.2s}
+.lm-form button:hover{opacity:0.85}
+.lm-success{display:none;background:rgba(255,255,255,0.2);border-radius:10px;padding:0.8rem;font-size:0.85rem;margin-top:0.8rem}
+.lm-success.active{display:block}
+@media(max-width:800px){.lead-magnet{grid-template-columns:1fr;padding:1.8rem}}
+/* STICKY MOBILE CTA */
+.mobile-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--white);border-top:2px solid var(--coral-light);padding:10px 4%;gap:0.6rem;box-shadow:0 -4px 20px rgba(0,0,0,0.1)}
+.mobile-cta a{flex:1;text-align:center;font-size:0.85rem;font-weight:700;padding:12px;border-radius:50px;text-decoration:none}
+.mobile-cta .m-call{background:var(--coral);color:#fff}
+.mobile-cta .m-book{background:var(--navy);color:#fff}
+@media(max-width:800px){.mobile-cta{display:flex}body{padding-bottom:64px}}
+/* CALC CTA */
+.calc-cta{margin-top:0.9rem;background:var(--navy);color:#fff;border-radius:12px;padding:0.9rem 1rem;font-size:0.8rem;line-height:1.5;text-align:center}
+.calc-cta a{color:#FDBA74;font-weight:700;text-decoration:none}
+/* FAQ */
+.faq-item{background:var(--white);border:1.5px solid var(--border);border-radius:14px;margin-bottom:0.8rem;overflow:hidden}
+.faq-q{padding:1.1rem 1.4rem;font-size:0.92rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.faq-q::after{content:'+';font-size:1.3rem;color:var(--coral);font-weight:400}
+.faq-item.open .faq-q::after{content:'\2212'}
+.faq-a{display:none;padding:0 1.4rem 1.1rem;font-size:0.85rem;color:var(--slate);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+/* JOURNEY EXPAND */
+.journey-card{cursor:pointer}
+.journey-toggle{display:inline-block;margin-top:0.8rem;font-size:0.78rem;font-weight:700;color:var(--coral)}
+.journey-card.open .journey-toggle{color:var(--coral-dark)}
+.journey-detail{display:none;margin-top:1rem;padding-top:1rem;border-top:1.5px dashed var(--border);font-size:0.82rem;color:var(--slate);line-height:1.65}
+.journey-card.open .journey-detail{display:block}
+.journey-detail ul{margin:0.7rem 0 0.7rem 1.1rem}
+.journey-detail li{margin-bottom:0.35rem}
+
+.journey-proof{background:var(--teal-light);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;padding:0.8rem 1rem;margin:0.8rem 0;font-size:0.8rem;color:var(--teal-dark);font-style:italic;line-height:1.6}
+.journey-promise{background:var(--coral-light);border-radius:10px;padding:0.8rem;font-size:0.8rem;color:var(--coral-dark);font-weight:500}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+
+@media(max-width:1100px){.calc-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:800px){
+  .calc-grid,.services-grid,.footer-grid{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr}
+  .hero-inner{gap:2rem}
+  .form-row{grid-template-columns:1fr}
+  .footer-disclaimer{text-align:left}
+  .footer-bottom{flex-direction:column}
+  .contact-wrap{padding:1.8rem}
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-F9FSSK5PFX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-F9FSSK5PFX');
+</script>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-brand">
+    <span class="nav-brand-name">Home Buying</span>
+    <span class="nav-brand-tag">Own It Easy</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#calculators">Calculators</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#journey">Free Guidance</a></li>
+    <li><a href="#contact-form">Contact</a></li>
+  </ul>
+  <a href="tel:+16479522740" class="nav-cta">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12a19.79 19.79 0 01-3.07-8.67A2 2 0 012 1.32h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 9a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+    <span class="nav-cta-text">+1 (647) 952-2740</span>
+  </a>
+  <button class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span>Mortgage Specialists</span></div>
+      <h1>Mortgage Guidance, Built to Feel <em>Simple.</em></h1>
+      <p class="hero-sub">Precision Ontario mortgage tools, Canadian compounding, OSFI stress test, and 2026 Toronto land transfer tax — all built in. Clear numbers, zero guesswork.</p>
+      <div class="hero-btns">
+        <a href="#calculators" class="btn-primary">Explore Calculators</a>
+        <a href="tel:+16479522740" class="btn-outline">Call +1 (647) 952-2740</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hc-title">Live Affordability Estimate</div>
+      <div class="form-group">
+        <label class="form-label">Annual Income ($)</label>
+        <input type="text" inputmode="numeric" class="form-input currency" id="h_income" value="140,000">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Down Payment ($)</label>
+        <input type="text" inputmode="numeric" class="form-input currency" id="h_down" value="150,000">
+      </div>
+      <div class="hc-result">
+        <div class="hc-result-label">Estimated Home Price</div>
+        <div class="hc-result-val" id="h_price">$&mdash;</div>
+      </div>
+      <div class="hc-sub-results">
+        <div class="hc-sub"><div class="hc-sub-label">Max Mortgage</div><div class="hc-sub-val" id="h_mort">$&mdash;</div></div>
+        <div class="hc-sub"><div class="hc-sub-label">Stress Test Rate</div><div class="hc-sub-val" id="h_rate">6.29%</div></div>
+      </div>
+      <div class="form-hint" style="margin-top:0.6rem">Assumes 4.29% rate, 25-yr amortization, no other debts. Full details below.</div>
+    </div>
+  </div>
+</div>
+
+<section id="calculators">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal">Ontario Calculators</p>
+    <h2 class="section-title reveal">Three Tools. Total Clarity.</h2>
+    <p class="section-sub reveal">Pre-filled with 2026 OSFI and CMHC defaults. Every value is editable — override anything to run your own scenario.</p>
+    <div class="calc-grid">
+
+      <!-- CALC 1 -->
+      <div class="calc-card reveal">
+        <div class="calc-num">01</div>
+        <h3>Affordability Calculator</h3>
+        <p class="calc-desc">How much home you qualify for under Canada's federal stress test rules.</p>
+        <div class="form-group">
+          <label class="form-label">Annual Income ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="a_income" placeholder="e.g. 120,000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Monthly Debts ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="a_debts" placeholder="car loans, cards, etc." value="0">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Down Payment ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="a_down" placeholder="e.g. 100,000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amortization</label>
+            <select class="form-select" id="a_amort"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contract Rate (%) <span class="prefill-tag">PRE-FILLED</span></label>
+          <input type="number" class="form-input prefilled" id="a_rate" value="4.29" step="0.01" min="0">
+          <div class="form-hint">Default: 4.29% — update manually as market rates change. Edit to match your lender quote.</div>
+        </div>
+        <div class="stress-display">
+          <span class="stress-label">OSFI Qualifying Rate
+            <span class="tip">?<span class="tiptext">Federal rule: banks must test that you could still afford payments at your rate + 2% (minimum 5.25%). This protects you if rates rise.</span></span>
+          </span>
+          <span class="stress-val" id="a_stress_val">6.29%</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Qualifying Rate Override (%) <span style="font-size:0.65rem;color:var(--muted);text-transform:none;font-weight:400">optional</span></label>
+          <input type="number" class="form-input" id="a_qual_override" placeholder="Leave blank to use auto" step="0.01" min="0">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Property Tax/mo ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="a_tax" placeholder="e.g. 400">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Heating/mo ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="a_heat" placeholder="e.g. 150">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Condo Fees/mo ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="a_condo" placeholder="0 if not applicable" value="0">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">GDS Limit (%)
+              <span class="tip">?<span class="tiptext">Gross Debt Service: max share of income allowed for housing costs (mortgage + tax + heat + half of condo fees). OSFI max is 39%.</span></span>
+            </label>
+            <input type="number" class="form-input prefilled" id="a_gds_limit" value="39" step="0.5" min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">TDS Limit (%)
+              <span class="tip">?<span class="tiptext">Total Debt Service: max share of income for housing PLUS all other debts (car loans, credit cards). OSFI max is 44%.</span></span>
+            </label>
+            <input type="number" class="form-input prefilled" id="a_tds_limit" value="44" step="0.5" min="1">
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcAfford()">Calculate Affordability</button>
+        <div class="calc-results" id="a_results">
+          <div class="result-line"><span class="result-key">Qualifying Rate Used</span><span class="result-val" id="a_r_rate"></span></div>
+          <div class="result-line"><span class="result-key">GDS Limit</span><span class="result-val" id="a_r_gds"></span></div>
+          <div class="result-line"><span class="result-key">TDS Limit</span><span class="result-val" id="a_r_tds"></span></div>
+          <div class="result-line"><span class="result-key">Max Monthly Mortgage Pmt</span><span class="result-val" id="a_r_pmt"></span></div>
+          <div class="result-line"><span class="result-key">Maximum Mortgage</span><span class="result-val featured" id="a_r_mort"></span></div>
+          <div class="result-line"><span class="result-key">Estimated Home Price</span><span class="result-val featured" id="a_r_price"></span></div><div class="calc-cta">Want us to verify this number with real lenders? <a href="https://calendly.com/versettifinance/30min" target="_blank">Book a free call</a> or call <a href="tel:+16479522740">+1 (647) 952-2740</a> &mdash; no cost, no credit pull.</div>
+        </div>
+      </div>
+
+      <!-- CALC 2 -->
+      <div class="calc-card reveal reveal-delay-1">
+        <div class="calc-num">02</div>
+        <h3>Payment Calculator</h3>
+        <p class="calc-desc">Your true payment — including mortgage insurance if your down payment is under 20%.</p>
+        <div class="form-group">
+          <label class="form-label">Home Price ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="p_price" placeholder="e.g. 750,000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Down Payment ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="p_down" placeholder="e.g. 150,000">
+          <div class="form-hint" id="p_cmhc_hint">Enter price and down payment to see insurance tier</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Interest Rate (%) <span class="prefill-tag">PRE-FILLED</span></label>
+          <input type="number" class="form-input prefilled" id="p_rate" value="4.29" step="0.01" min="0">
+          <div class="form-hint">Default: 4.29% — update manually as market rates change.</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Amortization</label>
+            <select class="form-select" id="p_amort"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Frequency</label>
+            <select class="form-select" id="p_freq">
+              <option value="monthly">Monthly</option>
+              <option value="biweekly">Bi-weekly</option>
+              <option value="accel_biweekly">Accel. Bi-weekly</option>
+              <option value="weekly">Weekly</option>
+              <option value="accel_weekly">Accel. Weekly</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Annual Tax ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="p_tax" placeholder="e.g. 4,800">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Heating/mo ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="p_heat" placeholder="e.g. 150">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Condo Fees/mo ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="p_condo" placeholder="0 if not applicable" value="0">
+        </div>
+        <button class="calc-btn" onclick="calcPayment()">Calculate Payment</button>
+        <div class="calc-results" id="p_results">
+          <div class="result-line"><span class="result-key">Base Mortgage</span><span class="result-val" id="p_r_base"></span></div>
+          <div class="result-line"><span class="result-key">CMHC Premium <span class="tip">?<span class="tiptext">Mortgage default insurance, required when your down payment is under 20%. The premium is added to your mortgage.</span></span></span><span class="result-val" id="p_r_cmhc"></span></div>
+          <div class="result-line"><span class="result-key">Ontario PST on CMHC (8%)</span><span class="result-val" id="p_r_pst"></span></div>
+          <div class="result-line"><span class="result-key">Total Insured Mortgage</span><span class="result-val" id="p_r_insured"></span></div>
+          <div class="result-line"><span class="result-key">Mortgage Payment</span><span class="result-val featured" id="p_r_pmt"></span></div>
+          <div class="result-line"><span class="result-key">Total Pmt (incl. tax + heat)</span><span class="result-val featured" id="p_r_total"></span></div><div class="calc-cta">Want us to verify this number with real lenders? <a href="https://calendly.com/versettifinance/30min" target="_blank">Book a free call</a> or call <a href="tel:+16479522740">+1 (647) 952-2740</a> &mdash; no cost, no credit pull.</div>
+        </div>
+      </div>
+
+      <!-- CALC 3 -->
+      <div class="calc-card reveal reveal-delay-2">
+        <div class="calc-num">03</div>
+        <h3>Ontario Closing Costs</h3>
+        <p class="calc-desc">Land transfer taxes, rebates, and fees — everything you pay on closing day.</p>
+        <div class="form-group">
+          <label class="form-label">Purchase Price ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="c_price" placeholder="e.g. 900,000">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Down Payment ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_down" placeholder="e.g. 180,000">
+            <div class="form-hint" id="c_down_hint"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Legal Fees ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_legal" value="1,800">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Title Insurance ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_title" value="350">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Home Inspection ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_inspect" value="500">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Appraisal ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_appraise" value="400">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Adjustments ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_adj" value="0">
+          </div>
+        </div>
+        <div class="toggle-row">
+          <label class="toggle-item"><input type="checkbox" id="c_toronto"><span>Property is in Toronto
+            <span class="tip">?<span class="tiptext">Homes inside the City of Toronto pay a SECOND land transfer tax on top of Ontario's — roughly doubling this cost. Includes new 2026 luxury tiers for homes over $3M.</span></span>
+          </span></label>
+          <label class="toggle-item"><input type="checkbox" id="c_ftb"><span>First-time Buyer
+            <span class="tip">?<span class="tiptext">First-time buyers get land transfer tax rebates: up to $4,000 from Ontario and up to $4,475 from Toronto.</span></span>
+          </span></label>
+        </div>
+        <button class="calc-btn" onclick="calcClosing()">Calculate Closing Costs</button>
+        <div class="calc-results" id="c_results">
+          <div class="result-line"><span class="result-key">Ontario Land Transfer Tax</span><span class="result-val" id="c_r_ont"></span></div>
+          <div class="result-line"><span class="result-key">Ontario FTB Rebate</span><span class="result-val" id="c_r_ont_reb"></span></div>
+          <div class="result-line"><span class="result-key">Toronto Land Transfer Tax</span><span class="result-val" id="c_r_tor"></span></div>
+          <div class="result-line"><span class="result-key">Toronto FTB Rebate</span><span class="result-val" id="c_r_tor_reb"></span></div>
+          <div class="result-line"><span class="result-key">PST on Mortgage Insurance</span><span class="result-val" id="c_r_pst"></span></div>
+          <div class="result-line"><span class="result-key">Professional Fees</span><span class="result-val" id="c_r_fees"></span></div>
+          <div class="result-line"><span class="result-key">Total Closing Costs</span><span class="result-val featured" id="c_r_total"></span></div><div class="calc-cta">Want us to verify this number with real lenders? <a href="https://calendly.com/versettifinance/30min" target="_blank">Book a free call</a> or call <a href="tel:+16479522740">+1 (647) 952-2740</a> &mdash; no cost, no credit pull.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal">What We Do</p>
+    <h2 class="section-title reveal">White-Glove Mortgage Services</h2>
+    <p class="section-sub reveal">From first inquiry to final close — dedicated guidance, transparent numbers, direct expert access.</p>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Home Purchase Mortgages</h3>
+        <p>First purchase, move-up buyers, or investment property — structured for your life, stress-tested for confidence.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-1">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></div>
+        <h3>Refinancing Strategies</h3>
+        <p>Unlock equity, consolidate debt, restructure ahead of renewal — full breakeven and savings analysis included.</p>
+      </div>
+      <div class="service-card reveal reveal-delay-2">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h3>Premium Closing Guidance</h3>
+        <p>Ontario and Toronto land transfer taxes, mortgage insurance, PST, legal — zero surprises on possession day.</p>
+      </div>
+    </div>
+    <div class="commercial-banner reveal">
+      <div>
+        <h4>Commercial Mortgage &amp; Lending</h4>
+        <p>Retail plazas, multi-unit residential, office, or business acquisition — commercial financing is coming soon. For commercial needs today, contact us directly.</p>
+      </div>
+      <a href="tel:+16479522740">Call for Commercial</a>
+    </div>
+  </div>
+</section>
+
+
+<section id="journey" style="background:var(--white);border-top:2px solid var(--coral-light)">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal">Beyond the Mortgage</p>
+    <h2 class="section-title reveal">Guidance for Every Stage of the Journey</h2>
+    <p class="section-sub reveal">A mortgage is one moment &mdash; your finances are a lifetime. Every review below is <strong>completely free</strong>. No fees, no obligation, no sales pressure. Click any stage to see exactly what you get.</p>
+    <div class="services-grid">
+      <div class="service-card journey-card reveal" onclick="toggleJourney('j1',this)">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Before: Get Mortgage-Ready</h3>
+        <p>Down payment savings plans, credit improvement, and a full audit of your accounts to find spending leakage.</p>
+        <span class="journey-toggle">+ What you get</span>
+        <div class="journey-detail" id="j1">
+          <p><strong>Your money is leaking somewhere &mdash; we find it.</strong> In a free, judgment-free review of your accounts, we typically uncover $200&ndash;$600/month in forgotten subscriptions, bank fees, and quiet overspending. Redirected into a savings plan, that alone can build a down payment years faster.</p>
+          <ul>
+            <li>Line-by-line spending review to plug the leaks</li>
+            <li>A month-by-month down payment roadmap with a target date</li>
+            <li>Credit score game plan so you qualify for the best rate</li>
+            <li>RRSP Home Buyers&rsquo; Plan &amp; FHSA guidance &mdash; we work with a network of licensed investment professionals who can build a growth plan for your FHSA and savings, so a 2-year runway to a down payment works harder than a chequing account ever could</li>
+          </ul>
+          <div class="journey-proof">A recent client came to us thinking they were 4 years from a down payment. Our account review found roughly $800/month in overlapping subscriptions, unused memberships, and avoidable fees. Redirected into their FHSA, their timeline dropped to just over 2 years.</div>
+          <p class="journey-promise">We take full ownership of your plan and check in along the way &mdash; at zero cost. You only ever &ldquo;pay&rdquo; us by trusting us with your mortgage when you&rsquo;re ready.</p>
+        </div>
+      </div>
+      <div class="service-card journey-card reveal reveal-delay-1" onclick="toggleJourney('j2',this)">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>During: Buy With Confidence</h3>
+        <p>Stress-tested affordability, lender negotiation, and complete closing cost planning.</p>
+        <span class="journey-toggle">+ What you get</span>
+        <div class="journey-detail" id="j2">
+          <p><strong>You should never walk into the biggest purchase of your life guessing.</strong> Before you offer on a single home, you&rsquo;ll know your true budget, your exact closing costs, and your payment to the dollar.</p>
+          <ul>
+            <li>Pre-approval strategy across multiple lenders &mdash; we negotiate, you save</li>
+            <li>A written &ldquo;true cost&rdquo; sheet: payment, insurance, taxes, closing &mdash; no surprises</li>
+            <li>Guidance on offer conditions, deposits, and closing timelines</li>
+            <li>Direct access to us seven days a week during your purchase</li>
+          </ul>
+          <div class="journey-proof">On a recent purchase, shopping the same file across three lenders moved the offer from 4.54% to 4.19% &mdash; about $23,000 less interest over the five-year term. Same client, same paperwork; the difference was negotiation.</div>
+          <p class="journey-promise">One point of contact from pre-approval to keys. We own every step so you can focus on finding the right home.</p>
+        </div>
+      </div>
+      <div class="service-card journey-card reveal reveal-delay-2" onclick="toggleJourney('j3',this)">
+        <div class="svc-icon"><svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+        <h3>After: Build From Your Home</h3>
+        <p>Prepayment strategies, debt consolidation, and planning the move to your next property.</p>
+        <span class="journey-toggle">+ What you get</span>
+        <div class="journey-detail" id="j3">
+          <p><strong>Most brokers disappear after closing. That&rsquo;s exactly when we get to work.</strong> Your home is now your biggest financial tool &mdash; we make sure it works for you.</p>
+          <ul>
+            <li>Annual free mortgage check-up: are you still on the best rate?</li>
+            <li>Prepayment playbook &mdash; shave years and tens of thousands in interest</li>
+            <li>Renewal negotiation so you never auto-sign a bad rate</li>
+            <li>Equity strategy for renovations, debt consolidation, or your next property</li>
+            <li><strong>Smith Manoeuvre planning</strong> &mdash; a CRA-recognized strategy where, as you pay down your mortgage, you re-borrow the freed-up equity to invest. The interest on the investment loan becomes tax-deductible, and the tax refunds go back onto your mortgage. Done right (with a readvanceable mortgage and proper advice), it can convert non-deductible mortgage debt into a deductible investment loan and shave years off your payoff</li>
+          </ul>
+          <div class="journey-proof">One homeowner we advise restructured into a readvanceable mortgage and began a conservative Smith Manoeuvre in year two. Between tax refunds applied to principal and disciplined prepayments, their projected payoff moved from 25 years to roughly 19 &mdash; while building an investment portfolio alongside.</div>
+          <p class="journey-promise">We stay your advisor for life, at no cost &mdash; because clients who win keep coming back, and bring their friends.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="checklist" style="background:var(--bg)">
+  <div class="section-inner">
+    <div class="lead-magnet reveal">
+      <div>
+        <h3>Free: The Mortgage-Ready Checklist</h3>
+        <p>The exact 20-point checklist we use with clients &mdash; documents to gather, credit moves to make, FHSA/RRSP steps, and the traps that delay approvals. Yours instantly, no call required.</p>
+      </div>
+      <div>
+        <div class="lm-form">
+          <input type="email" id="lm_email" placeholder="Your email address">
+          <button onclick="submitLeadMagnet()">Send My Checklist</button>
+        </div>
+        <div class="lm-success" id="lm_success"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--white);border-top:2px solid var(--coral-light)">
+  <div class="section-inner" style="max-width:760px">
+    <p class="section-eyebrow reveal" style="text-align:center">Questions</p>
+    <h2 class="section-title reveal" style="text-align:center">Frequently Asked Questions</h2>
+    <div style="margin-top:2rem">
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is this really free? What's the catch?</div><div class="faq-a">Yes &mdash; every review, plan, and consultation is free. Like all mortgage brokers in Ontario, we're paid a commission by the lender when your mortgage closes, not by you. You only ever "pay" us by trusting us with your mortgage when you're ready. If you never proceed, you owe nothing.</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Will you pull my credit? Does it hurt my score?</div><div class="faq-a">Never without your explicit consent. Initial reviews and planning use numbers you share. When you're ready for a pre-approval, we do one soft-touch process across our lender network &mdash; multiple mortgage inquiries within a short window count as a single inquiry for scoring purposes.</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Are these calculators accurate?</div><div class="faq-a">They use real Canadian rules: semi-annual compounding, the federal OSFI stress test, current CMHC premium tiers, and 2026 Ontario and Toronto land transfer tax brackets. They're estimates for planning &mdash; your final numbers come from a lender-verified pre-approval, which we'll do free.</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do you only work with one bank?</div><div class="faq-a">No &mdash; we shop your file across banks, credit unions, and monoline lenders, then negotiate. Lenders compete; you win.</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What is the Smith Manoeuvre &mdash; and is it legal?</div><div class="faq-a">It's a CRA-recognized strategy: as you pay down your mortgage, you re-borrow the freed equity to invest, making that interest tax-deductible. Refunds go back onto the mortgage. It requires the right mortgage product, discipline, and professional tax advice &mdash; we build the mortgage side and coordinate with licensed advisors for the rest.</div></div>
+      <div class="faq-item reveal"><div class="faq-q" onclick="this.parentElement.classList.toggle('open')">I'm self-employed / a contractor. Can you help?</div><div class="faq-a">Yes &mdash; incorporated professionals and self-employed buyers are a specialty. Lenders assess your income differently; we know which ones look at gross-ups, retained earnings, and stated income programs.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact-form">
+  <div class="section-inner">
+    <p class="section-eyebrow reveal" style="text-align:center">Contact Us</p>
+    <h2 class="section-title reveal" style="text-align:center">Let's Talk Numbers</h2>
+    <p class="section-sub reveal" style="text-align:center;margin-left:auto;margin-right:auto">Send us your question and we'll get back within one business day.</p>
+    <div class="contact-wrap reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" id="cf_name" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" id="cf_phone" placeholder="+1 (___) ___-____">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" id="cf_email" placeholder="you@email.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">How can we help?</label>
+        <textarea class="form-input" id="cf_msg" placeholder="Tell us about your purchase, renewal, refinance, or commercial needs..."></textarea>
+      </div>
+      <button class="calc-btn" onclick="submitContact()">Send Message</button>
+      <div class="form-success" id="cf_success"></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Home Buying</div>
+        <div class="footer-tagline">Own It Easy</div>
+        <p class="footer-desc">Ontario mortgage expertise with clarity, speed, and a commitment to your best outcome. Residential today — commercial lending coming soon.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Get In Touch</div>
+        <div class="footer-contact">
+          <a href="tel:+16479522740">📞 +1 (647) 952-2740</a>
+          <a href="mailto:versettifinance@gmail.com">✉️ versettifinance@gmail.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Hours</div>
+        <p style="font-size:0.83rem;color:rgba(255,255,255,0.5);line-height:2">Mon–Fri: 9am–6pm<br>Saturday: 10am–4pm<br>Sunday: By appointment</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Home Buying. All rights reserved.<br><span style="color:rgba(255,255,255,0.45)">Mortgage Agent License: FSRA #[LICENSE-NUMBER] · Brokerage: [BROKERAGE NAME], FSRA #[BROKERAGE-LICENSE]</span></div>
+      <div class="footer-disclaimer">Ontario calculations only. Toronto closing costs include 2026 luxury land transfer tax tiers effective April 1, 2026. Results are estimates only and do not constitute mortgage advice.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Tooltip: tap support + viewport-clamped positioning (prevents horizontal overflow) */
+function positionTip(t){
+  var tt=t.querySelector('.tiptext');
+  if(!tt)return;
+  tt.style.left='50%';tt.style.right='auto';tt.style.transform='translateX(-50%)';
+  var r=tt.getBoundingClientRect();
+  var vw=document.documentElement.clientWidth;
+  var margin=8;
+  if(r.left<margin){
+    var shift=margin-r.left;
+    tt.style.transform='translateX(calc(-50% + '+shift+'px))';
+  } else if(r.right>vw-margin){
+    var shift2=r.right-(vw-margin);
+    tt.style.transform='translateX(calc(-50% - '+shift2+'px))';
+  }
+}
+document.querySelectorAll('.tip').forEach(function(t){
+  t.addEventListener('click',function(e){
+    e.stopPropagation();
+    var wasOpen=t.classList.contains('tap-open');
+    document.querySelectorAll('.tip.tap-open').forEach(function(o){o.classList.remove('tap-open')});
+    if(!wasOpen){t.classList.add('tap-open');positionTip(t);}
+  });
+  t.addEventListener('mouseenter',function(){positionTip(t)});
+});
+document.addEventListener('click',function(){document.querySelectorAll('.tip.tap-open').forEach(function(o){o.classList.remove('tap-open')})});
+
+/* Reveal */
+var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('visible')})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
+
+/* Amortization options 10–30 */
+['a_amort','p_amort'].forEach(function(id){
+  var sel=document.getElementById(id);
+  for(var y=10;y<=30;y++){
+    var o=document.createElement('option');o.value=y;o.textContent=y+' years';
+    if(y===25)o.selected=true;
+    sel.appendChild(o);
+  }
+});
+
+/* Currency formatting: strips leading zeros, adds commas as you type */
+function parseNum(v){return parseFloat(String(v).replace(/[^0-9.]/g,''))||0}
+function fmtInput(v){
+  var raw=String(v).replace(/[^0-9]/g,'').replace(/^0+(?=\d)/,'');
+  if(raw==='')return'';
+  return parseInt(raw,10).toLocaleString('en-CA');
+}
+document.querySelectorAll('.currency').forEach(function(inp){
+  inp.addEventListener('input',function(){
+    var pos=this.selectionStart,before=this.value.length;
+    this.value=fmtInput(this.value);
+    var diff=this.value.length-before;
+    this.setSelectionRange(Math.max(0,pos+diff),Math.max(0,pos+diff));
+  });
+  inp.addEventListener('blur',function(){this.value=fmtInput(this.value)});
+});
+
+/* Stress test live update */
+document.getElementById('a_rate').addEventListener('input',function(){
+  var r=parseFloat(this.value)||0;
+  document.getElementById('a_stress_val').textContent=Math.max(r+2,5.25).toFixed(2)+'%';
+});
+
+function fmt(n){return'$'+Math.round(n).toLocaleString('en-CA')}
+function fmtPct(n){return n.toFixed(2)+'%'}
+function canadianMonthlyRate(p){return Math.pow(1+p/200,1/6)-1}
+function calcPMT(pr,ap,yr){var r=canadianMonthlyRate(ap),n=yr*12;return r===0?pr/n:pr*r/(1-Math.pow(1+r,-n))}
+function mortgageFromPMT(pmt,ap,yr){var r=canadianMonthlyRate(ap),n=yr*12;return r===0?pmt*n:pmt*(1-Math.pow(1+r,-n))/r}
+function cmhcRate(p){return p<10?0.04:p<15?0.031:p<20?0.028:0}
+function calcOntLTT(p){var t=0;if(p>2000000)t+=(p-2000000)*0.025;if(p>400000)t+=Math.min(p-400000,1600000)*0.02;if(p>250000)t+=Math.min(p-250000,150000)*0.015;if(p>55000)t+=Math.min(p-55000,195000)*0.01;t+=Math.min(p,55000)*0.005;return t}
+function calcTorMLTT(p){var t=0,tiers=[[0,55000,0.005],[55000,250000,0.01],[250000,400000,0.015],[400000,2000000,0.02],[2000000,3000000,0.025],[3000000,4000000,0.044],[4000000,5000000,0.0545],[5000000,10000000,0.065],[10000000,20000000,0.0755],[20000000,Infinity,0.086]];tiers.forEach(function(b){if(p>b[0])t+=(Math.min(p,b[1])-b[0])*b[2]});return t}
+
+/* CMHC hint + auto-20% when price > $1.5M (insurance cutoff) */
+function handlePriceDown(priceId,downId,hintId){
+  var pr=parseNum(document.getElementById(priceId).value);
+  var dnEl=document.getElementById(downId);
+  var dn=parseNum(dnEl.value);
+  var h=document.getElementById(hintId);
+  if(!h)return;
+  if(pr>1500000&&dn<pr*0.2){
+    var min20=Math.ceil(pr*0.2);
+    dnEl.value=fmtInput(min20);
+    dnEl.classList.add('autofilled');
+    h.className='form-hint notice';
+    h.textContent='Auto-set to 20% ('+fmt(min20)+'): homes over $1.5M cannot be insured, so lenders require at least 20% down.';
+    return;
+  }
+  dnEl.classList.remove('autofilled');
+  if(!pr||!dn){h.className='form-hint';h.textContent='Enter price and down payment to see insurance tier';return}
+  var pct=(dn/pr)*100;
+  h.className='form-hint';
+  h.textContent=pct>=20?'\u2713 \u226520% down \u2014 no mortgage insurance required':pct>=15?'Mortgage insurance: 2.80% premium (15\u201319.99% down)':pct>=10?'Mortgage insurance: 3.10% premium (10\u201314.99% down)':pct>=5?'Mortgage insurance: 4.00% premium (5\u20139.99% down)':'\u26A0 Minimum down payment is 5%';
+}
+['p_price','p_down'].forEach(function(id){var el=document.getElementById(id);['input','blur'].forEach(function(ev){el.addEventListener(ev,function(){handlePriceDown('p_price','p_down','p_cmhc_hint')})})});
+['c_price','c_down'].forEach(function(id){var el=document.getElementById(id);['input','blur'].forEach(function(ev){el.addEventListener(ev,function(){handlePriceDown('c_price','c_down','c_down_hint')})})});
+
+function calcAfford(){
+  var income=parseNum(document.getElementById('a_income').value),debts=parseNum(document.getElementById('a_debts').value),down=parseNum(document.getElementById('a_down').value),rate=parseFloat(document.getElementById('a_rate').value)||0,amort=parseInt(document.getElementById('a_amort').value)||25,tax=parseNum(document.getElementById('a_tax').value),heat=parseNum(document.getElementById('a_heat').value),condo=parseNum(document.getElementById('a_condo').value),gLim=parseFloat(document.getElementById('a_gds_limit').value)||39,tLim=parseFloat(document.getElementById('a_tds_limit').value)||44,ov=parseFloat(document.getElementById('a_qual_override').value)||0,res=document.getElementById('a_results');
+  if(!income||!rate){res.classList.add('active');res.innerHTML='<div class="result-error">Please enter annual income and contract rate.</div>';return}
+  var qr=ov>0?ov:Math.max(rate+2,5.25),mi=income/12,hf=tax+heat+(condo/2),maxG=(mi*(gLim/100))-hf,maxT=(mi*(tLim/100))-debts-hf,mp=Math.min(maxG,maxT);
+  if(mp<=0){res.classList.add('active');res.innerHTML='<div class="result-error">Debt load or expenses exceed qualifying limits at this income.</div>';return}
+  var mm=mortgageFromPMT(mp,qr,amort);
+  res.classList.add('active');
+  document.getElementById('a_r_rate').textContent=fmtPct(qr)+(ov>0?' (manual)':' (OSFI auto)');
+  document.getElementById('a_r_gds').textContent=fmt(maxG)+'/mo';
+  document.getElementById('a_r_tds').textContent=fmt(maxT)+'/mo';
+  document.getElementById('a_r_pmt').textContent=fmt(mp)+'/mo';
+  document.getElementById('a_r_mort').textContent=fmt(mm);
+  document.getElementById('a_r_price').textContent=fmt(mm+down);
+}
+
+function calcPayment(){
+  var pr=parseNum(document.getElementById('p_price').value),dn=parseNum(document.getElementById('p_down').value),rt=parseFloat(document.getElementById('p_rate').value)||0,am=parseInt(document.getElementById('p_amort').value)||25,fq=document.getElementById('p_freq').value,tx=parseNum(document.getElementById('p_tax').value),ht=parseNum(document.getElementById('p_heat').value),cd=parseNum(document.getElementById('p_condo').value),res=document.getElementById('p_results');
+  if(!pr||!rt){res.classList.add('active');res.innerHTML='<div class="result-error">Please enter home price and interest rate.</div>';return}
+  if(dn>=pr){res.classList.add('active');res.innerHTML='<div class="result-error">Down payment cannot equal or exceed home price.</div>';return}
+  var bm=pr-dn,dp=(dn/pr)*100,cr=cmhcRate(dp),cp=pr<=1500000?bm*cr:0,ps=cp*0.08,im=bm+cp,mp=calcPMT(im,rt,am),me=(tx/12)+ht+cd;
+  var fl,fp,fe;
+  if(fq==='monthly'){fl='Monthly';fp=mp;fe=me}else if(fq==='biweekly'){fl='Bi-weekly';fp=mp*12/26;fe=me*12/26}else if(fq==='accel_biweekly'){fl='Accel. Bi-weekly';fp=mp/2;fe=me/2}else if(fq==='weekly'){fl='Weekly';fp=mp*12/52;fe=me*12/52}else{fl='Accel. Weekly';fp=mp/4;fe=me/4}
+  res.classList.add('active');
+  document.getElementById('p_r_base').textContent=fmt(bm);
+  document.getElementById('p_r_cmhc').textContent=cp>0?fmt(cp)+' ('+(cr*100).toFixed(1)+'%)':'None \u2014 \u226520% down';
+  document.getElementById('p_r_pst').textContent=ps>0?fmt(ps):'N/A';
+  document.getElementById('p_r_insured').textContent=fmt(im);
+  document.getElementById('p_r_pmt').textContent=fl+': '+fmt(fp);
+  document.getElementById('p_r_total').textContent=fl+': '+fmt(fp+fe);
+}
+
+function calcClosing(){
+  var pr=parseNum(document.getElementById('c_price').value),dn=parseNum(document.getElementById('c_down').value),lg=parseNum(document.getElementById('c_legal').value),ti=parseNum(document.getElementById('c_title').value),ins=parseNum(document.getElementById('c_inspect').value),ap=parseNum(document.getElementById('c_appraise').value),ad=parseNum(document.getElementById('c_adj').value),iT=document.getElementById('c_toronto').checked,iF=document.getElementById('c_ftb').checked,res=document.getElementById('c_results');
+  if(!pr){res.classList.add('active');res.innerHTML='<div class="result-error">Please enter a purchase price.</div>';return}
+  var ont=calcOntLTT(pr),or_=iF?Math.min(ont,4000):0,tor=iT?calcTorMLTT(pr):0,tr=iT&&iF?Math.min(tor,4475):0,bm=Math.max(pr-dn,0),dp=pr>0?(dn/pr)*100:0,ps=pr<=1500000&&dp<20&&bm>0?bm*cmhcRate(dp)*0.08:0,fe=lg+ti+ins+ap+ad;
+  res.classList.add('active');
+  document.getElementById('c_r_ont').textContent=fmt(ont);
+  document.getElementById('c_r_ont_reb').textContent=or_>0?'\u2212 '+fmt(or_):'None';
+  document.getElementById('c_r_tor').textContent=iT?fmt(tor):'N/A \u2014 outside Toronto';
+  document.getElementById('c_r_tor_reb').textContent=iT&&tr>0?'\u2212 '+fmt(tr):iT?'None':'N/A';
+  document.getElementById('c_r_pst').textContent=ps>0?fmt(ps):'N/A';
+  document.getElementById('c_r_fees').textContent=fmt(fe);
+  document.getElementById('c_r_total').textContent=fmt((ont-or_)+(tor-tr)+ps+fe);
+}
+
+/* Journey expand */
+function toggleJourney(id,card){
+  var d=document.getElementById(id);
+  var isOpen=card.classList.contains('open');
+  document.querySelectorAll('.journey-card').forEach(function(c){c.classList.remove('open');var t=c.querySelector('.journey-toggle');if(t)t.textContent='+ What you get'});
+  if(!isOpen){card.classList.add('open');card.querySelector('.journey-toggle').textContent='\u2212 What you get'}
+}
+
+/* Hero live estimate */
+function heroCalc(){
+  var inc=parseNum(document.getElementById('h_income').value);
+  var dn=parseNum(document.getElementById('h_down').value);
+  if(!inc){document.getElementById('h_price').textContent='$\u2014';document.getElementById('h_mort').textContent='$\u2014';return}
+  var qr=Math.max(4.29+2,5.25);
+  var mp=(inc/12)*0.39;
+  var mm=mortgageFromPMT(mp,qr,25);
+  document.getElementById('h_mort').textContent=fmt(mm);
+  document.getElementById('h_price').textContent=fmt(mm+dn);
+}
+['h_income','h_down'].forEach(function(id){document.getElementById(id).addEventListener('input',heroCalc)});
+heroCalc();
+
+/* Tooltip tap support (mobile) */
+document.querySelectorAll('.tip').forEach(function(t){t.addEventListener('click',function(ev){ev.stopPropagation();document.querySelectorAll('.tip.show').forEach(function(o){if(o!==t)o.classList.remove('show')});t.classList.toggle('show')})});
+document.addEventListener('click',function(){document.querySelectorAll('.tip.show').forEach(function(t){t.classList.remove('show')})});
+
+/* Journey card toggle */
+
+/* Lead magnet */
+function submitLeadMagnet(){
+  var e=document.getElementById('lm_email').value.trim();
+  var s=document.getElementById('lm_success');
+  if(!e||e.indexOf('@')<0){s.classList.add('active');s.textContent='Please enter a valid email.';return}
+  fetch('https://formspree.io/f/mjgqdgzb',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:e,request:'Mortgage-Ready Checklist'})})
+  .then(function(r){s.classList.add('active');s.textContent=r.ok?'\u2713 Check your inbox \u2014 your checklist is on the way!':'Something went wrong \u2014 email versettifinance@gmail.com';document.getElementById('lm_email').value=''})
+  .catch(function(){s.classList.add('active');s.textContent='Network error \u2014 email versettifinance@gmail.com'});
+}
+
+/* Contact form via Formspree (static site — no backend) */
+function submitContact(){
+  var n=document.getElementById('cf_name').value.trim(),p=document.getElementById('cf_phone').value.trim(),e=document.getElementById('cf_email').value.trim(),m=document.getElementById('cf_msg').value.trim();
+  var s=document.getElementById('cf_success');
+  if(!e||!m){s.classList.add('active');s.style.background='#FEF2F2';s.style.borderColor='#DC2626';s.style.color='#991B1B';s.textContent='Please enter at least your email and a message.';return}
+  fetch('https://formspree.io/f/xkolaoyk',{
+    method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({name:n,phone:p,email:e,message:m})
+  }).then(function(r){
+    s.classList.add('active');
+    if(r.ok){s.style.background='#ECFDF5';s.style.borderColor='#10B981';s.style.color='#065F46';s.textContent='\u2713 Message sent! We\u2019ll reply within one business day.';
+      ['cf_name','cf_phone','cf_email','cf_msg'].forEach(function(i){document.getElementById(i).value=''});
+    } else {s.style.background='#FEF2F2';s.style.borderColor='#DC2626';s.style.color='#991B1B';s.textContent='Something went wrong \u2014 email us at versettifinance@gmail.com';}
+  }).catch(function(){s.classList.add('active');s.textContent='Network error \u2014 email us at versettifinance@gmail.com'});
+}
+</script>
+
+<div class="mobile-cta">
+  <a href="tel:+16479522740" class="m-call">📞 Call Now</a>
+  <a href="https://calendly.com/versettifinance/30min" target="_blank" class="m-book">Book Free Call</a>
+</div>
+</body>
+</html>
