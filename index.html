@@ -202,7 +202,7 @@ section{padding:96px 5%}
 .faq-item{background:var(--white);border:1px solid var(--border);border-radius:16px;margin-bottom:0.8rem;overflow:hidden}
 .faq-q{padding:1.1rem 1.4rem;font-size:0.92rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
 .faq-q::after{content:'+';font-size:1.3rem;color:var(--blue);font-weight:400}
-.faq-item.open .faq-q::after{content:'\\2212'}
+.faq-item.open .faq-q::after{content:'\2212'}
 .faq-a{display:none;padding:0 1.4rem 1.1rem;font-size:0.85rem;color:var(--gray);line-height:1.7}
 .faq-item.open .faq-a{display:block}
 
@@ -304,7 +304,95 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
 .reveal{opacity:0;transform:translateY(24px) scale(0.985);transition:opacity 0.7s cubic-bezier(.22,.61,.36,1),transform 0.7s cubic-bezier(.22,.61,.36,1)}
 .reveal.visible{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}.calc-results.flash::after,.hc-result.pop{animation:none}.orb{display:none}}
+/* ===== HERO STAGE — replaces the blue tile =====
+   Full-bleed photos of the homes, then the headline directly underneath.
+   Uses the page's own tokens (--ink, --gray, --blue, Inter). */
+
+.stage{padding:84px 4% 36px;max-width:1180px;margin:0 auto}
+/* The first photo sits behind the animation as a poster, so the panel is never empty. The height
+   cap leaves room for the headline row and both buttons inside one laptop screen. */
+.stage-art{position:relative;width:100%;aspect-ratio:3/2;max-height:calc(100svh - 320px);min-height:260px;border-radius:28px;overflow:hidden;background:#14161a url(img/home-night.jpg) center/cover no-repeat}
+.stage-art>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* Pause control: the picture moves on its own, so the reader gets a way to stop it. */
+.stage-pause{position:absolute;right:14px;bottom:14px;z-index:2;width:44px;height:44px;border-radius:50%;border:0;display:grid;place-items:center;background:rgba(11,11,13,.66);color:#fff;cursor:pointer;transition:background .2s ease,transform .2s cubic-bezier(.22,.61,.36,1)}
+.stage-pause:hover{background:rgba(11,11,13,.86)}
+.stage-pause:active{transform:scale(.93)}
+.stage-pause svg{width:18px;height:18px;fill:currentColor}
+.stage-pause .i-play{display:none}
+.stage-pause[aria-pressed="true"] .i-play{display:block}
+.stage-pause[aria-pressed="true"] .i-pause{display:none}
+
+/* The page ships no focus styles of its own; give the hero's controls a ring that reads on light and dark. */
+.stage .btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.stage-pause:focus-visible{outline:none;box-shadow:0 0 0 2px #fff,0 0 0 5px var(--blue)}
+
+/* The headline row. The left edge lines up with the picture above and the right column ends
+   flush with its right edge. The headline and the paragraph share a first baseline. */
+.stage-copy{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,29rem);gap:1.2rem 3rem;align-items:first baseline;margin-top:1.8rem}
+.stage-copy h1{font-size:clamp(2.1rem,4.2vw,3.4rem);font-weight:700;line-height:1.08;letter-spacing:-0.02em;color:var(--ink);text-wrap:balance}
+.stage-sub{font-size:1.06rem;line-height:1.65;color:var(--gray);margin-bottom:1.5rem;text-wrap:pretty}
+.stage-actions{display:flex;gap:.75rem;flex-wrap:wrap}
+.stage-actions .btn{flex:1 1 auto;text-align:center}
+.stage .btn-primary{background:var(--blue);color:#fff;box-shadow:0 6px 18px rgba(0,113,227,.28)}
+.stage .btn-primary:hover{box-shadow:0 10px 26px rgba(0,113,227,.36)}
+.stage .btn-secondary{background:transparent;color:var(--blue-dark);border:1px solid rgba(0,0,0,.14)}
+.stage .btn-secondary:hover{background:var(--blue-light)}
+
+@media(max-width:860px){
+  .stage-copy{grid-template-columns:minmax(0,1fr);gap:1rem;align-items:start}
+}
+
+/* Reassurance under the picture: a step larger than the page's default, so it reads. */
+.trust-item{font-size:.92rem}
+@media(max-width:640px){
+  .stage{padding:78px 4% 28px}
+  .stage-art{border-radius:22px;max-height:none}
+  .stage-actions{flex-direction:column}
+  .stage-copy h1{font-size:1.95rem}
+}
+
+/* ===== CALCULATORS — additions to the page's own calculator styles ===== */
+
+/* the fifth card runs the full width of the grid */
+.calc-card--wide{grid-column:1/-1}
+.dp-inputs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 1rem}
+@media(max-width:860px){.dp-inputs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.dp-inputs{grid-template-columns:minmax(0,1fr)}}
+.form-hint-inline{font-weight:400;color:var(--gray-light);font-size:0.7rem}
+
+/* a hidden toggle must stay hidden (the page's flex rule would otherwise show it) */
+.toggle-item[hidden]{display:none}
+.toggle-item input[type=checkbox]:focus-visible{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--blue)}
+
+/* collapsible block of optional fields */
+.calc-more{margin:0.2rem 0 0.4rem}
+.calc-more summary{cursor:pointer;font-size:0.8rem;font-weight:600;color:var(--blue-dark);padding:6px 0;list-style:none}
+.calc-more summary::-webkit-details-marker{display:none}
+.calc-more summary::before{content:'+';display:inline-block;width:1rem;font-weight:700}
+.calc-more[open] summary::before{content:'\2212'}
+.calc-more summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.calc-more .form-row{margin-top:0.4rem}
+
+/* explanations under the results */
+.calc-note{font-size:0.76rem;line-height:1.55;color:var(--gray);margin-top:0.7rem}
+.calc-note.warn{color:var(--blue-dark);font-weight:600}
+
+/* the four side-by-side down payments */
+.scen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;margin-top:1rem}
+.scen{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:0.9rem 1rem}
+.scen h4{font-size:0.95rem;font-weight:700}
+.scen-sub{font-size:0.8rem;color:var(--gray);margin-bottom:0.4rem}
+.scen-row{display:flex;justify-content:space-between;gap:0.6rem;font-size:0.76rem;color:var(--gray);padding:4px 0;border-bottom:1px solid var(--border)}
+.scen-row b{color:var(--ink);font-weight:600;text-align:right}
+.scen-total{border-bottom:none;padding-top:7px}
+.scen-total b{color:var(--blue-dark)}
+.scen.off{background:transparent;border-style:dashed}
+.scen-off{font-size:0.76rem;color:var(--gray-light);line-height:1.5}
+
 </style>
+<link rel="preload" as="image" href="img/home-night.jpg">
+<noscript><style>.stage-pause{display:none}</style></noscript>
 </head>
 <body>
 
@@ -328,56 +416,24 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
 </nav>
 
 <!-- HERO -->
-<div class="hero-wrap">
-  <section class="hero">
-    <div class="hero-scene" aria-hidden="true">
-      <div class="hero-glow"></div>
-      <div class="hero-skyline">
-        <span style="height:28px"></span><span style="height:44px"></span>
-        <span style="height:24px"></span><span style="height:56px"></span>
-        <span style="height:32px"></span><span style="height:42px"></span>
-        <span style="height:22px"></span><span style="height:48px"></span>
-        <span style="height:34px"></span><span style="height:26px"></span>
-        <span style="height:40px"></span><span style="height:30px"></span>
-        <span style="height:50px"></span><span style="height:24px"></span>
-        <span style="height:36px"></span>
-      </div>
-      <svg class="hero-house" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <line x1="0" y1="270" x2="400" y2="270" stroke="rgba(255,255,255,0.14)" stroke-width="2"/>
-        <g opacity="0.18" fill="#ffffff"><rect x="52" y="235" width="6" height="35" rx="2"/><circle cx="55" cy="222" r="20"/></g>
-        <g opacity="0.9" stroke="rgba(255,255,255,0.85)" stroke-width="2.5" stroke-linejoin="round" fill="rgba(255,255,255,0.06)">
-          <path d="M120 270 V150 L230 80 L340 150 V270 Z"/>
-          <path d="M105 158 L230 70 L355 158" fill="none"/>
-          <rect x="205" y="205" width="42" height="65" rx="2" fill="rgba(255,255,255,0.12)"/>
-          <rect x="145" y="180" width="38" height="38" rx="2" fill="rgba(255,255,255,0.10)"/>
-          <rect x="272" y="180" width="38" height="38" rx="2" fill="rgba(255,255,255,0.10)"/>
-          <path d="M164 180 V218 M145 199 H183" stroke-width="1.5"/>
-          <path d="M291 180 V218 M272 199 H310" stroke-width="1.5"/>
-          <path d="M300 108 V80 H320 V128" fill="none"/>
-          <circle cx="238" cy="238" r="2.5" fill="rgba(255,255,255,0.8)" stroke="none"/>
-        </g>
-        <rect x="147" y="182" width="34" height="34" rx="2" fill="rgba(255,240,200,0.12)" stroke="none"/>
-        <rect x="274" y="182" width="34" height="34" rx="2" fill="rgba(255,240,200,0.12)" stroke="none"/>
-        <g opacity="0.16" fill="#ffffff"><rect x="368" y="238" width="6" height="32" rx="2"/><circle cx="371" cy="226" r="18"/></g>
-      </svg>
-      <div class="hero-cloud hero-cloud--a">
-        <svg viewBox="0 0 64 40" width="72" height="45" fill="white"><path d="M18 30a10 10 0 0 1-2-19.8A13 13 0 0 1 41 8a9 9 0 0 1 5 16.9A8 8 0 0 1 44 30H18z"/></svg>
-      </div>
-      <div class="hero-cloud hero-cloud--b">
-        <svg viewBox="0 0 64 40" width="46" height="29" fill="white"><path d="M18 30a10 10 0 0 1-2-19.8A13 13 0 0 1 41 8a9 9 0 0 1 5 16.9A8 8 0 0 1 44 30H18z"/></svg>
-      </div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-badge"><span>Ontario Mortgage Specialists</span></div>
-      <h1>Whatever Your Next Move,<br><em>We'll Get You There.</em></h1>
-      <p class="hero-sub">First home, moving up, refinancing, or renewing — mortgage tools, a plain-English guide, and a full team of experts, all in one place.</p>
-      <div class="hero-actions">
+<header class="stage">
+  <div class="stage-art">
+    <button class="stage-pause" type="button" aria-pressed="false" aria-label="Pause animation">
+      <svg class="i-pause" viewBox="0 0 18 18" aria-hidden="true"><rect x="3.5" y="2.5" width="3.8" height="13" rx="1"/><rect x="10.7" y="2.5" width="3.8" height="13" rx="1"/></svg>
+      <svg class="i-play" viewBox="0 0 18 18" aria-hidden="true"><path d="M5 2.8v12.4a.8.8 0 0 0 1.2.7l10-6.2a.8.8 0 0 0 0-1.4L6.2 2.1A.8.8 0 0 0 5 2.8z"/></svg>
+    </button>
+  </div>
+  <div class="stage-copy">
+    <h1>Home buying, simplified.</h1>
+    <div class="stage-side">
+      <p class="stage-sub">We take the stress out of buying a home. Simple steps, clear numbers, and one expert in your corner from your first question to the keys.</p>
+      <div class="stage-actions">
         <a href="#calculators" class="btn btn-primary">Start the Buyer's Guide</a>
         <a href="#journey" class="btn btn-secondary">Explore the Buyer's Hub</a>
       </div>
     </div>
-  </section>
-</div>
+  </div>
+</header>
 
 <!-- TRUST BAR -->
 <div class="trust-bar">
@@ -415,7 +471,7 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
 <section id="calculators" class="alt-bg">
   <div class="section-inner">
     <p class="eyebrow reveal">Ontario Calculators</p>
-    <h2 class="section-title reveal">Four Tools. Total Clarity.</h2>
+    <h2 class="section-title reveal">Five Tools. Total Clarity.</h2>
     <p class="section-sub reveal">Pre-filled with 2026 OSFI and CMHC defaults. Every value is editable.</p>
     <div class="calc-grid">
 
@@ -425,32 +481,43 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
         <p class="calc-desc">Renting now? See when you'll be ready to buy, and what you could afford.</p>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Monthly Rent ($)</label>
+            <label class="form-label" for="r_rent">Monthly Rent ($)</label>
             <input type="text" inputmode="numeric" class="form-input currency" id="r_rent" placeholder="e.g. 2,200">
           </div>
           <div class="form-group">
-            <label class="form-label">Annual Income ($)</label>
+            <label class="form-label" for="r_income">Annual Income ($)</label>
             <input type="text" inputmode="numeric" class="form-input currency" id="r_income" placeholder="e.g. 90,000">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Current Savings ($)</label>
+            <label class="form-label" for="r_savings">Current Savings ($)</label>
             <input type="text" inputmode="numeric" class="form-input currency" id="r_savings" placeholder="e.g. 15,000">
           </div>
           <div class="form-group">
-            <label class="form-label">Monthly Savings ($)</label>
+            <label class="form-label" for="r_monthly">Monthly Savings ($)</label>
             <input type="text" inputmode="numeric" class="form-input currency" id="r_monthly" placeholder="e.g. 900">
           </div>
         </div>
-        <button class="calc-btn" onclick="calcReadiness()">Calculate My Readiness</button>
-        <div class="calc-results" id="r_results">
-          <div class="result-line"><span class="result-key">Est. Home Price You'd Qualify For</span><span class="result-val" id="r_price"></span></div>
-          <div class="result-line"><span class="result-key">Minimum Down Payment Needed</span><span class="result-val" id="r_needed"></span></div>
-          <div class="result-line"><span class="result-key">Months to Reach That Goal</span><span class="result-val" id="r_months"></span></div>
-          <div class="result-line"><span class="result-key">Your Rent Today</span><span class="result-val" id="r_rentcompare"></span></div>
-          <div class="result-line"><span class="result-key">Est. Mortgage Payment Then</span><span class="result-val featured" id="r_pmtcompare"></span></div>
+        <div class="form-group">
+          <label class="form-label" for="r_debts">Monthly Debts ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="r_debts" placeholder="car loans, cards, etc." value="0">
         </div>
+        <details class="calc-more">
+          <summary>Expected carrying costs</summary>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="r_tax">Property Tax/mo ($)</label>
+              <input type="text" inputmode="numeric" class="form-input currency" id="r_tax" value="400">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="r_heat">Heating/mo ($)</label>
+              <input type="text" inputmode="numeric" class="form-input currency" id="r_heat" value="100">
+            </div>
+          </div>
+        </details>
+        <button class="calc-btn" onclick="calcReadiness()">Calculate My Readiness</button>
+        <div class="calc-results" id="r_results" aria-live="polite"></div>
       </div>
 
       <div class="calc-card reveal">
@@ -458,55 +525,54 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
         <h3>Affordability Calculator</h3>
         <p class="calc-desc">How much home you qualify for under Canada's federal stress test.</p>
         <div class="form-group">
-          <label class="form-label">Annual Income ($)</label>
+          <label class="form-label" for="a_income">Annual Income ($)</label>
           <input type="text" inputmode="numeric" class="form-input currency" id="a_income" placeholder="e.g. 120,000">
         </div>
         <div class="form-group">
-          <label class="form-label">Monthly Debts ($)</label>
+          <label class="form-label" for="a_debts">Monthly Debts ($)</label>
           <input type="text" inputmode="numeric" class="form-input currency" id="a_debts" placeholder="car loans, cards, etc." value="0">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Down Payment ($)</label>
+            <label class="form-label" for="a_down">Down Payment ($)</label>
             <input type="text" inputmode="numeric" class="form-input currency" id="a_down" placeholder="e.g. 100,000">
           </div>
           <div class="form-group">
-            <label class="form-label">Amortization</label>
+            <label class="form-label" for="a_amort">Amortization</label>
             <select class="form-select" id="a_amort"></select>
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Contract Rate (%) <span class="prefill-tag">PRE-FILLED</span></label>
-          <input type="number" class="form-input prefilled" id="a_rate" value="4.29" step="0.01" min="0">
-          <div class="form-hint">Default: 4.29% &mdash; update manually as market rates change.</div>
+          <label class="form-label" for="a_rate">Contract Rate (%) <span class="prefill-tag">PRE-FILLED</span></label>
+          <input type="number" class="form-input prefilled" id="a_rate" value="4.34" step="0.01" min="0">
+          <div class="form-hint">Default: 4.34% &mdash; update manually as market rates change.</div>
         </div>
         <div class="stress-display">
           <span class="stress-label">OSFI Qualifying Rate
             <span class="tip">?<span class="tiptext">Federal rule: banks must test that you could still afford payments at your rate + 2% (minimum 5.25%).</span></span>
           </span>
-          <span class="stress-val" id="a_stress_val">6.29%</span>
+          <span class="stress-val" id="a_stress_val">6.34%</span>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Property Tax/mo ($)</label>
-            <input type="text" inputmode="numeric" class="form-input currency" id="a_tax" placeholder="e.g. 400">
+            <label class="form-label" for="a_tax">Property Tax/mo ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="a_tax" value="400">
           </div>
           <div class="form-group">
-            <label class="form-label">Heating/mo ($)</label>
-            <input type="text" inputmode="numeric" class="form-input currency" id="a_heat" placeholder="e.g. 150">
+            <label class="form-label" for="a_heat">Heating/mo ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="a_heat" value="100">
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Condo Fees/mo ($)</label>
+          <label class="form-label" for="a_condo">Condo Fees/mo ($)</label>
           <input type="text" inputmode="numeric" class="form-input currency" id="a_condo" placeholder="0 if not applicable" value="0">
         </div>
-        <button class="calc-btn" onclick="calcAfford()">Calculate Affordability</button>
-        <div class="calc-results" id="a_results">
-          <div class="result-line"><span class="result-key">Qualifying Rate Used</span><span class="result-val" id="a_r_rate"></span></div>
-          <div class="result-line"><span class="result-key">Max Monthly Mortgage Pmt</span><span class="result-val" id="a_r_pmt"></span></div>
-          <div class="result-line"><span class="result-key">Maximum Mortgage</span><span class="result-val featured" id="a_r_mort"></span></div>
-          <div class="result-line"><span class="result-key">Estimated Home Price</span><span class="result-val featured" id="a_r_price"></span></div>
+        <div class="toggle-row">
+          <label class="toggle-item"><input type="checkbox" id="a_ftb"><span>First-time buyer or new build</span></label>
         </div>
+        <div class="form-hint">A 30-year amortization with under 20% down is only available to first-time buyers and new builds.</div>
+        <button class="calc-btn" onclick="calcAfford()">Calculate Affordability</button>
+        <div class="calc-results" id="a_results" aria-live="polite"></div>
       </div>
 
       <div class="calc-card reveal">
@@ -514,25 +580,25 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
         <h3>Payment Calculator</h3>
         <p class="calc-desc">Your true payment &mdash; including mortgage insurance if under 20% down.</p>
         <div class="form-group">
-          <label class="form-label">Home Price ($)</label>
+          <label class="form-label" for="p_price">Home Price ($)</label>
           <input type="text" inputmode="numeric" class="form-input currency" id="p_price" placeholder="e.g. 750,000">
         </div>
         <div class="form-group">
-          <label class="form-label">Down Payment ($)</label>
+          <label class="form-label" for="p_down">Down Payment ($)</label>
           <input type="text" inputmode="numeric" class="form-input currency" id="p_down" placeholder="e.g. 150,000">
           <div class="form-hint" id="p_cmhc_hint">Enter price and down payment to see insurance tier</div>
         </div>
         <div class="form-group">
-          <label class="form-label">Interest Rate (%) <span class="prefill-tag">PRE-FILLED</span></label>
-          <input type="number" class="form-input prefilled" id="p_rate" value="4.29" step="0.01" min="0">
+          <label class="form-label" for="p_rate">Interest Rate (%) <span class="prefill-tag">PRE-FILLED</span></label>
+          <input type="number" class="form-input prefilled" id="p_rate" value="4.34" step="0.01" min="0">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Amortization</label>
+            <label class="form-label" for="p_amort">Amortization</label>
             <select class="form-select" id="p_amort"></select>
           </div>
           <div class="form-group">
-            <label class="form-label">Frequency</label>
+            <label class="form-label" for="p_freq">Frequency</label>
             <select class="form-select" id="p_freq">
               <option value="monthly">Monthly</option>
               <option value="biweekly">Bi-weekly</option>
@@ -544,26 +610,23 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Annual Tax ($)</label>
-            <input type="text" inputmode="numeric" class="form-input currency" id="p_tax" placeholder="e.g. 4,800">
+            <label class="form-label" for="p_tax">Annual Tax ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="p_tax" value="4,800">
           </div>
           <div class="form-group">
-            <label class="form-label">Heating/mo ($)</label>
-            <input type="text" inputmode="numeric" class="form-input currency" id="p_heat" placeholder="e.g. 150">
+            <label class="form-label" for="p_heat">Heating/mo ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="p_heat" value="100">
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Condo Fees/mo ($)</label>
+          <label class="form-label" for="p_condo">Condo Fees/mo ($)</label>
           <input type="text" inputmode="numeric" class="form-input currency" id="p_condo" placeholder="0 if not applicable" value="0">
         </div>
-        <button class="calc-btn" onclick="calcPayment()">Calculate Payment</button>
-        <div class="calc-results" id="p_results">
-          <div class="result-line"><span class="result-key">Base Mortgage</span><span class="result-val" id="p_r_base"></span></div>
-          <div class="result-line"><span class="result-key">Mortgage Insurance (CMHC)</span><span class="result-val" id="p_r_cmhc"></span></div>
-          <div class="result-line"><span class="result-key">Total Insured Mortgage</span><span class="result-val" id="p_r_insured"></span></div>
-          <div class="result-line"><span class="result-key">Mortgage Payment</span><span class="result-val featured" id="p_r_pmt"></span></div>
-          <div class="result-line"><span class="result-key">Total Pmt (incl. tax + heat)</span><span class="result-val featured" id="p_r_total"></span></div>
+        <div class="toggle-row">
+          <label class="toggle-item"><input type="checkbox" id="p_ftb"><span>First-time buyer or new build</span></label>
         </div>
+        <button class="calc-btn" onclick="calcPayment()">Calculate Payment</button>
+        <div class="calc-results" id="p_results" aria-live="polite"></div>
       </div>
 
       <div class="calc-card reveal">
@@ -571,42 +634,88 @@ footer{background:var(--ink);color:#fff;padding:56px 5% 36px}
         <h3>Ontario Closing Costs</h3>
         <p class="calc-desc">Land transfer taxes, rebates, and fees &mdash; everything due on closing day.</p>
         <div class="form-group">
-          <label class="form-label">Purchase Price ($)</label>
+          <label class="form-label" for="c_price">Purchase Price ($)</label>
           <input type="text" inputmode="numeric" class="form-input currency" id="c_price" placeholder="e.g. 900,000">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Down Payment ($)</label>
+            <label class="form-label" for="c_down">Down Payment ($)</label>
             <input type="text" inputmode="numeric" class="form-input currency" id="c_down" placeholder="e.g. 180,000">
             <div class="form-hint" id="c_down_hint"></div>
           </div>
           <div class="form-group">
-            <label class="form-label">Legal Fees ($)</label>
-            <input type="text" inputmode="numeric" class="form-input currency" id="c_legal" value="1,800">
+            <label class="form-label" for="c_amort">Amortization</label>
+            <select class="form-select" id="c_amort"></select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Title Insurance ($)</label>
-            <input type="text" inputmode="numeric" class="form-input currency" id="c_title" value="350">
+            <label class="form-label" for="c_legal">Legal Fees ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_legal" value="2,000">
           </div>
           <div class="form-group">
-            <label class="form-label">Home Inspection ($)</label>
+            <label class="form-label" for="c_title">Title Insurance ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_title" value="400">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="c_inspect">Home Inspection ($)</label>
             <input type="text" inputmode="numeric" class="form-input currency" id="c_inspect" value="500">
           </div>
+          <div class="form-group">
+            <label class="form-label" for="c_appraisal">Appraisal ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="c_appraisal" value="400">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="c_adjust">Adjustments ($)</label>
+          <input type="text" inputmode="numeric" class="form-input currency" id="c_adjust" value="1,000">
+          <div class="form-hint">Prepaid property tax and utilities you reimburse the seller for.</div>
         </div>
         <div class="toggle-row">
           <label class="toggle-item"><input type="checkbox" id="c_toronto"><span>Property is in Toronto</span></label>
+          <label class="toggle-item" id="c_single_wrap" hidden><input type="checkbox" id="c_single" checked><span>Single-family home</span></label>
           <label class="toggle-item"><input type="checkbox" id="c_ftb"><span>First-time Buyer</span></label>
         </div>
         <button class="calc-btn" onclick="calcClosing()">Calculate Closing Costs</button>
-        <div class="calc-results" id="c_results">
-          <div class="result-line"><span class="result-key">Ontario Land Transfer Tax</span><span class="result-val" id="c_r_ont"></span></div>
-          <div class="result-line"><span class="result-key">Toronto Land Transfer Tax</span><span class="result-val" id="c_r_tor"></span></div>
-          <div class="result-line"><span class="result-key">First-Time Buyer Rebates</span><span class="result-val" id="c_r_reb"></span></div>
-          <div class="result-line"><span class="result-key">Professional Fees</span><span class="result-val" id="c_r_fees"></span></div>
-          <div class="result-line"><span class="result-key">Total Closing Costs</span><span class="result-val featured" id="c_r_total"></span></div>
+        <div class="calc-results" id="c_results" aria-live="polite"></div>
+      </div>
+
+      <div class="calc-card calc-card--wide reveal">
+        <div class="calc-num">05</div>
+        <h3>Down Payment Calculator</h3>
+        <p class="calc-desc">How much cash you need for a home at a specific price, and what each down payment costs you.</p>
+        <div class="dp-inputs">
+          <div class="form-group">
+            <label class="form-label" for="dp_price">Home Price ($)</label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="dp_price" placeholder="e.g. 750,000">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dp_savings">Savings for Down Payment ($) <span class="form-hint-inline">optional</span></label>
+            <input type="text" inputmode="numeric" class="form-input currency" id="dp_savings" value="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dp_rate">Interest Rate (%) <span class="prefill-tag">PRE-FILLED</span></label>
+            <input type="number" class="form-input prefilled" id="dp_rate" value="4.34" step="0.01" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dp_amort">Amortization</label>
+            <select class="form-select" id="dp_amort">
+              <option value="15">15 years</option>
+              <option value="20">20 years</option>
+              <option value="25" selected>25 years</option>
+              <option value="30">30 years (first-time buyers, new builds)</option>
+            </select>
+          </div>
         </div>
+        <div class="toggle-row">
+          <label class="toggle-item"><input type="checkbox" id="dp_toronto"><span>Property is in Toronto</span></label>
+          <label class="toggle-item" id="dp_single_wrap" hidden><input type="checkbox" id="dp_single" checked><span>Single-family home</span></label>
+          <label class="toggle-item"><input type="checkbox" id="dp_ftb"><span>First-time Buyer</span></label>
+        </div>
+        <button class="calc-btn" onclick="calcDownPayment()">Calculate Down Payment</button>
+        <div class="calc-results" id="dp_results" aria-live="polite"></div>
       </div>
 
     </div>
@@ -906,7 +1015,7 @@ document.addEventListener('click',function(){document.querySelectorAll('.tip.tap
 /* Currency formatting */
 function parseNum(v){return parseFloat(String(v).replace(/[^0-9.]/g,''))||0}
 function fmtInput(v){
-  var raw=String(v).replace(/[^0-9]/g,'').replace(/^0+(?=\\d)/,'');
+  var raw=String(v).replace(/[^0-9]/g,'').replace(/^0+(?=\d)/,'');
   if(raw==='')return'';
   return parseInt(raw,10).toLocaleString('en-CA');
 }
@@ -920,149 +1029,14 @@ document.querySelectorAll('.currency').forEach(function(inp){
   inp.addEventListener('blur',function(){this.value=fmtInput(this.value)});
 });
 
-document.getElementById('a_rate').addEventListener('input',function(){
-  var r=parseFloat(this.value)||0;
-  document.getElementById('a_stress_val').textContent=Math.max(r+2,5.25).toFixed(2)+'%';
-});
-
-function fmt(n){return'$'+Math.round(n).toLocaleString('en-CA')}
-function fmtPct(n){return n.toFixed(2)+'%'}
-function canadianMonthlyRate(p){return Math.pow(1+p/200,1/6)-1}
-function calcPMT(pr,ap,yr){var r=canadianMonthlyRate(ap),n=yr*12;return r===0?pr/n:pr*r/(1-Math.pow(1+r,-n))}
-function mortgageFromPMT(pmt,ap,yr){var r=canadianMonthlyRate(ap),n=yr*12;return r===0?pmt*n:pmt*(1-Math.pow(1+r,-n))/r}
-function cmhcRate(p){return p<10?0.04:p<15?0.031:p<20?0.028:0}
-function minDownPayment(price){
-  if(price<=500000)return price*0.05;
-  if(price<=1500000)return 500000*0.05+(price-500000)*0.10;
-  return price*0.20;
-}
-function calcOntLTT(p){var t=0;if(p>2000000)t+=(p-2000000)*0.025;if(p>400000)t+=Math.min(p-400000,1600000)*0.02;if(p>250000)t+=Math.min(p-250000,150000)*0.015;if(p>55000)t+=Math.min(p-55000,195000)*0.01;t+=Math.min(p,55000)*0.005;return t}
-function calcTorMLTT(p){var t=0,tiers=[[0,55000,0.005],[55000,250000,0.01],[250000,400000,0.015],[400000,2000000,0.02],[2000000,3000000,0.025],[3000000,4000000,0.044],[4000000,5000000,0.0545],[5000000,10000000,0.065],[10000000,20000000,0.0755],[20000000,Infinity,0.086]];tiers.forEach(function(b){if(p>b[0])t+=(Math.min(p,b[1])-b[0])*b[2]});return t}
-
-/* Count-up */
-function countUp(el, finalText){
-  var m=String(finalText).match(/\\$([0-9,]+)/);
-  if(!m){el.textContent=finalText;return}
-  var target=parseInt(m[1].replace(/,/g,''),10);
-  if(!isFinite(target)||target<=0){el.textContent=finalText;return}
-  var prefix=finalText.slice(0,finalText.indexOf('$'));
-  var suffix=finalText.slice(finalText.indexOf(m[0])+m[0].length);
-  var dur=600,start=null;
-  function step(ts){
-    if(!start)start=ts;
-    var p=Math.min((ts-start)/dur,1);
-    var eased=1-Math.pow(1-p,3);
-    el.textContent=prefix+'$'+Math.round(target*eased).toLocaleString('en-CA')+suffix;
-    if(p<1)requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
-}
-function animateResults(containerId){
-  var c=document.getElementById(containerId);
-  if(!c)return;
-  c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');
-  c.querySelectorAll('.result-val.featured').forEach(function(el){countUp(el, el.textContent)});
-}
-
-/* Savings Readiness Calculator */
-function calcReadiness(){
-  var rent=parseNum(document.getElementById('r_rent').value);
-  var income=parseNum(document.getElementById('r_income').value);
-  var savings=parseNum(document.getElementById('r_savings').value);
-  var monthly=parseNum(document.getElementById('r_monthly').value);
-  var res=document.getElementById('r_results');
-  if(!income||!rent){res.classList.add('active');res.innerHTML='<div class="result-error">Please enter your monthly rent and annual income.</div>';return}
-  var qr=Math.max(4.29+2,5.25);
-  var mp=(income/12)*0.39;
-  var maxMort=mortgageFromPMT(mp,qr,25);
-  var price=maxMort+savings;
-  var needed=minDownPayment(price);
-  var gap=Math.max(needed-savings,0);
-  var months=monthly>0?Math.ceil(gap/monthly):Infinity;
-  var actualPmt=calcPMT(maxMort,4.29,25);
-  res.classList.add('active');
-  document.getElementById('r_price').textContent=fmt(price);
-  document.getElementById('r_needed').textContent=fmt(needed);
-  document.getElementById('r_months').textContent=isFinite(months)?(months+' months (~'+(months/12).toFixed(1)+' yrs)'):'Add a monthly savings amount';
-  document.getElementById('r_rentcompare').textContent=fmt(rent)+'/mo';
-  document.getElementById('r_pmtcompare').textContent=fmt(actualPmt)+'/mo';
-  animateResults('r_results');
-}
-
-/* CMHC hint + auto-20% */
-function handlePriceDown(priceId,downId,hintId){
-  var pr=parseNum(document.getElementById(priceId).value);
-  var dnEl=document.getElementById(downId);
-  var dn=parseNum(dnEl.value);
-  var h=document.getElementById(hintId);
-  if(!h)return;
-  if(pr>1500000&&dn<pr*0.2){
-    var min20=Math.ceil(pr*0.2);
-    dnEl.value=fmtInput(min20);
-    h.className='form-hint notice';
-    h.textContent='Auto-set to 20% ('+fmt(min20)+'): homes over $1.5M require at least 20% down.';
-    return;
-  }
-  if(!pr||!dn){h.className='form-hint';h.textContent='Enter price and down payment to see insurance tier';return}
-  var pct=(dn/pr)*100;
-  h.className='form-hint';
-  h.textContent=pct>=20?'\\u2713 \\u226520% down \\u2014 no mortgage insurance required':pct>=15?'Mortgage insurance: 2.80% premium (15\\u201319.99% down)':pct>=10?'Mortgage insurance: 3.10% premium (10\\u201314.99% down)':pct>=5?'Mortgage insurance: 4.00% premium (5\\u20139.99% down)':'\\u26A0 Minimum down payment is 5%';
-}
-['p_price','p_down'].forEach(function(id){var el=document.getElementById(id);['input','blur'].forEach(function(ev){el.addEventListener(ev,function(){handlePriceDown('p_price','p_down','p_cmhc_hint')})})});
-['c_price','c_down'].forEach(function(id){var el=document.getElementById(id);['input','blur'].forEach(function(ev){el.addEventListener(ev,function(){handlePriceDown('c_price','c_down','c_down_hint')})})});
-
-function calcAfford(){
-  var income=parseNum(document.getElementById('a_income').value),debts=parseNum(document.getElementById('a_debts').value),down=parseNum(document.getElementById('a_down').value),rate=parseFloat(document.getElementById('a_rate').value)||0,amort=parseInt(document.getElementById('a_amort').value)||25,tax=parseNum(document.getElementById('a_tax').value),heat=parseNum(document.getElementById('a_heat').value),condo=parseNum(document.getElementById('a_condo').value),res=document.getElementById('a_results');
-  if(!income||!rate){res.classList.add('active');res.innerHTML='<div class="result-error">Please enter annual income and contract rate.</div>';return}
-  var qr=Math.max(rate+2,5.25),mi=income/12,hf=tax+heat+(condo/2),maxG=(mi*0.39)-hf,maxT=(mi*0.44)-debts-hf,mp=Math.min(maxG,maxT);
-  if(mp<=0){res.classList.add('active');res.innerHTML='<div class="result-error">Debt load or expenses exceed qualifying limits at this income.</div>';return}
-  var mm=mortgageFromPMT(mp,qr,amort);
-  res.classList.add('active');
-  document.getElementById('a_r_rate').textContent=fmtPct(qr)+' (OSFI auto)';
-  document.getElementById('a_r_pmt').textContent=fmt(mp)+'/mo';
-  document.getElementById('a_r_mort').textContent=fmt(mm);
-  document.getElementById('a_r_price').textContent=fmt(mm+down);
-  animateResults('a_results');
-}
-
-function calcPayment(){
-  var pr=parseNum(document.getElementById('p_price').value),dn=parseNum(document.getElementById('p_down').value),rt=parseFloat(document.getElementById('p_rate').value)||0,am=parseInt(document.getElementById('p_amort').value)||25,fq=document.getElementById('p_freq').value,tx=parseNum(document.getElementById('p_tax').value),ht=parseNum(document.getElementById('p_heat').value),cd=parseNum(document.getElementById('p_condo').value),res=document.getElementById('p_results');
-  if(!pr||!rt){res.classList.add('active');res.innerHTML='<div class="result-error">Please enter home price and interest rate.</div>';return}
-  if(dn>=pr){res.classList.add('active');res.innerHTML='<div class="result-error">Down payment cannot equal or exceed home price.</div>';return}
-  var bm=pr-dn,dp=(dn/pr)*100,cr=cmhcRate(dp),cp=pr<=1500000?bm*cr:0,im=bm+cp,mp=calcPMT(im,rt,am),me=(tx/12)+ht+cd;
-  var fl,fp,fe;
-  if(fq==='monthly'){fl='Monthly';fp=mp;fe=me}else if(fq==='biweekly'){fl='Bi-weekly';fp=mp*12/26;fe=me*12/26}else if(fq==='accel_biweekly'){fl='Accel. Bi-weekly';fp=mp/2;fe=me/2}else if(fq==='weekly'){fl='Weekly';fp=mp*12/52;fe=me*12/52}else{fl='Accel. Weekly';fp=mp/4;fe=me/4}
-  res.classList.add('active');
-  document.getElementById('p_r_base').textContent=fmt(bm);
-  document.getElementById('p_r_cmhc').textContent=cp>0?fmt(cp)+' ('+(cr*100).toFixed(1)+'%)':'None \\u2014 \\u226520% down';
-  document.getElementById('p_r_insured').textContent=fmt(im);
-  document.getElementById('p_r_pmt').textContent=fl+': '+fmt(fp);
-  document.getElementById('p_r_total').textContent=fl+': '+fmt(fp+fe);
-  animateResults('p_results');
-}
-
-function calcClosing(){
-  var pr=parseNum(document.getElementById('c_price').value),dn=parseNum(document.getElementById('c_down').value),lg=parseNum(document.getElementById('c_legal').value),ti=parseNum(document.getElementById('c_title').value),ins=parseNum(document.getElementById('c_inspect').value),iT=document.getElementById('c_toronto').checked,iF=document.getElementById('c_ftb').checked,res=document.getElementById('c_results');
-  if(!pr){res.classList.add('active');res.innerHTML='<div class="result-error">Please enter a purchase price.</div>';return}
-  var ont=calcOntLTT(pr),or_=iF?Math.min(ont,4000):0,tor=iT?calcTorMLTT(pr):0,tr=iT&&iF?Math.min(tor,4475):0,fe=lg+ti+ins;
-  var totalReb=or_+tr;
-  res.classList.add('active');
-  document.getElementById('c_r_ont').textContent=fmt(ont);
-  document.getElementById('c_r_tor').textContent=iT?fmt(tor):'N/A \\u2014 outside Toronto';
-  document.getElementById('c_r_reb').textContent=totalReb>0?'\\u2212 '+fmt(totalReb):'None';
-  document.getElementById('c_r_fees').textContent=fmt(fe);
-  document.getElementById('c_r_total').textContent=fmt((ont-or_)+(tor-tr)+fe);
-  animateResults('c_results');
-}
-
 /* Lead magnet */
 function submitLeadMagnet(){
   var e=document.getElementById('lm_email').value.trim();
   var s=document.getElementById('lm_success');
   if(!e||e.indexOf('@')<0){s.classList.add('active');s.textContent='Please enter a valid email.';return}
   fetch('https://formspree.io/f/mjgqdgzb',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email:e,request:'Mortgage-Ready Checklist'})})
-  .then(function(r){s.classList.add('active');s.textContent=r.ok?'\\u2713 Check your inbox \\u2014 your checklist is on the way!':'Something went wrong \\u2014 email versettifinance@gmail.com';document.getElementById('lm_email').value=''})
-  .catch(function(){s.classList.add('active');s.textContent='Network error \\u2014 email versettifinance@gmail.com'});
+  .then(function(r){s.classList.add('active');s.textContent=r.ok?'\u2713 Check your inbox \u2014 your checklist is on the way!':'Something went wrong \u2014 email versettifinance@gmail.com';document.getElementById('lm_email').value=''})
+  .catch(function(){s.classList.add('active');s.textContent='Network error \u2014 email versettifinance@gmail.com'});
 }
 
 /* Contact form */
@@ -1072,9 +1046,9 @@ function submitContact(){
   if(!e||!m){s.style.color='#c0392b';s.textContent='Please enter at least your email and a message.';return}
   fetch('https://formspree.io/f/xkolaoyk',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:n,phone:p,email:e,message:m})})
   .then(function(r){
-    if(r.ok){s.style.color='#0a8a3f';s.textContent='\\u2713 Message sent! We\\u2019ll reply within one business day.';['cf_name','cf_phone','cf_email','cf_msg'].forEach(function(i){document.getElementById(i).value=''});}
-    else{s.style.color='#c0392b';s.textContent='Something went wrong \\u2014 email versettifinance@gmail.com';}
-  }).catch(function(){s.style.color='#c0392b';s.textContent='Network error \\u2014 email versettifinance@gmail.com'});
+    if(r.ok){s.style.color='#0a8a3f';s.textContent='\u2713 Message sent! We\u2019ll reply within one business day.';['cf_name','cf_phone','cf_email','cf_msg'].forEach(function(i){document.getElementById(i).value=''});}
+    else{s.style.color='#c0392b';s.textContent='Something went wrong \u2014 email versettifinance@gmail.com';}
+  }).catch(function(){s.style.color='#c0392b';s.textContent='Network error \u2014 email versettifinance@gmail.com'});
 }
 
 /* ===== Buyer's Hub stage content ===== */
@@ -1152,6 +1126,797 @@ journeyGrid.addEventListener('click',function(e){
   panel.classList.add('open');
   setTimeout(function(){panel.scrollIntoView({behavior:'smooth',block:'nearest'})},80);
 });
+</script>
+<script>
+/* Get Me Mortgage calculators: the maths, with no page code in it.
+   This is a line-for-line port of the iOS app (MortgageRates.swift, MortgageMath.swift,
+   Calculators.swift, DownPaymentCalculator.swift) so the website and the app give the same
+   answer for the same inputs. Change a rate or a bracket here AND in MortgageRates.swift. */
+(function (root) {
+  'use strict';
+
+  /* ---------- rates and rules (MortgageRates.swift) ---------- */
+  var R = {
+    defaultContractRate: 4.34,
+    defaultMonthlyPropertyTax: 400,
+    defaultMonthlyHeating: 100,
+    defaultAmortizationYears: 25,
+    osfiBufferPercent: 2.0,
+    osfiFloorPercent: 5.25,
+    defaultGDSLimit: 39.0,
+    defaultTDSLimit: 44.0,
+    cmhcTiers: [
+      { min: 5.0,  max: 9.9999,  rate: 4.00 },
+      { min: 10.0, max: 14.9999, rate: 3.10 },
+      { min: 15.0, max: 19.9999, rate: 2.80 }
+    ],
+    conventionalDownPercent: 20.0,
+    minDownTierThreshold: 500000,
+    minDownLowerRate: 0.05,
+    minDownUpperRate: 0.10,
+    insuredPriceCeiling: 1500000,
+    ontarioPSTOnInsurance: 8.0,
+    insuredMaxAmortization: 25,
+    insuredMaxAmortizationFirstTimeBuyer: 30,
+    insuredThirtyYearPremiumSurcharge: 0.20,
+    ontarioLTT: [[55000, 0.5], [250000, 1.0], [400000, 1.5], [2000000, 2.0], [null, 2.5]],
+    ontarioFirstTimeBuyerMaxRebate: 4000,
+    torontoMLTT: [[55000, 0.5], [250000, 1.0], [400000, 1.5], [2000000, 2.0], [3000000, 2.5],
+                  [4000000, 4.40], [5000000, 5.45], [10000000, 6.50], [20000000, 7.55], [null, 8.60]],
+    torontoMLTTNonSingleFamily: [[55000, 0.5], [250000, 1.0], [400000, 1.5], [null, 2.0]],
+    torontoFirstTimeBuyerMaxRebate: 4475,
+    defaultLegalFees: 2000,
+    defaultTitleInsurance: 400,
+    defaultHomeInspection: 500,
+    defaultAppraisal: 400,
+    defaultAdjustments: 1000
+  };
+
+  /* ---------- core mortgage maths (MortgageMath.swift) ---------- */
+  var FREQ = {
+    monthly:        { ppy: 12, accel: 1 },
+    biweekly:       { ppy: 26, accel: 0 },
+    accel_biweekly: { ppy: 26, accel: 2 },
+    weekly:         { ppy: 52, accel: 0 },
+    accel_weekly:   { ppy: 52, accel: 4 }
+  };
+
+  /* Canadian mortgages compound semi-annually (Interest Act), not monthly. */
+  function periodicRate(annualPercent, ppy) {
+    if (!(annualPercent > 0) || !(ppy > 0)) return 0;
+    return Math.pow(1 + (annualPercent / 100) / 2, 2 / ppy) - 1;
+  }
+  function effectiveAnnualRate(annualPercent) {
+    return (Math.pow(1 + (annualPercent / 100) / 2, 2) - 1) * 100;
+  }
+  function paymentPPY(principal, ratePct, years, ppy) {
+    if (!(principal > 0) || !(years > 0) || !(ppy > 0)) return 0;
+    var i = periodicRate(ratePct, ppy), n = years * ppy;
+    if (!(i > 0)) return principal / n;
+    var d = 1 - Math.pow(1 + i, -n);
+    return d > 0 ? principal * i / d : 0;
+  }
+  function presentValue(pmt, ratePct, years, ppy) {
+    if (!(pmt > 0) || !(years > 0) || !(ppy > 0)) return 0;
+    var i = periodicRate(ratePct, ppy), n = years * ppy;
+    if (!(i > 0)) return pmt * n;
+    return pmt * (1 - Math.pow(1 + i, -n)) / i;
+  }
+  function paymentFreq(principal, ratePct, years, freq) {
+    var f = FREQ[freq] || FREQ.monthly;
+    if (f.accel) return paymentPPY(principal, ratePct, years, 12) / f.accel;
+    return paymentPPY(principal, ratePct, years, f.ppy);
+  }
+  function qualifyingRate(contractPct) {
+    return Math.max(contractPct + R.osfiBufferPercent, R.osfiFloorPercent);
+  }
+  function marginalTax(value, brackets) {
+    if (!(value > 0)) return 0;
+    var tax = 0, lower = 0;
+    for (var k = 0; k < brackets.length; k++) {
+      var upper = brackets[k][0] === null ? Infinity : brackets[k][0];
+      if (!(value > lower)) break;
+      tax += (Math.min(value, upper) - lower) * (brackets[k][1] / 100);
+      lower = upper;
+      if (value <= upper) break;
+    }
+    return tax;
+  }
+  function minimumDownPayment(price) {
+    if (!(price > 0)) return 0;
+    if (price >= R.insuredPriceCeiling) return price * (R.conventionalDownPercent / 100);
+    var t = R.minDownTierThreshold;
+    if (price <= t) return price * R.minDownLowerRate;
+    return t * R.minDownLowerRate + (price - t) * R.minDownUpperRate;
+  }
+
+  /* status: pending | conventional | insured | ineligible */
+  function insurance(o) {
+    var base = o.basePrincipal, price = o.purchasePrice, down = o.downPayment;
+    var years = o.amortizationYears == null ? R.insuredMaxAmortization : o.amortizationYears;
+    var ftb = !!o.isFirstTimeBuyer;
+    function res(status, rate, premium, pst, desc, warning) {
+      return { status: status, premiumRate: rate, premium: premium, pst: pst, tierDescription: desc, warning: warning || null, isInsured: status === 'insured' };
+    }
+    if (!(price > 0) || !(base > 0)) return res('pending', 0, 0, 0, 'Enter price and down payment to see insurance tier');
+    var pct = down / price * 100;
+    if (pct >= R.conventionalDownPercent) return res('conventional', 0, 0, 0, pct.toFixed(1) + '% down — conventional, no insurance required');
+    if (price >= R.insuredPriceCeiling) {
+      return res('ineligible', 0, 0, 0, 'Not eligible for mortgage insurance',
+        'Homes at or above ' + money(R.insuredPriceCeiling) + ' cannot be insured. A 20% down payment is required.');
+    }
+    var minimum = minimumDownPayment(price);
+    if (down < minimum) {
+      return res('ineligible', 0, 0, 0, 'Down payment below the legal minimum',
+        'This purchase requires at least ' + money(minimum) + ' down.');
+    }
+    var tier = null;
+    for (var k = 0; k < R.cmhcTiers.length; k++) {
+      if (pct >= R.cmhcTiers[k].min && pct <= R.cmhcTiers[k].max) { tier = R.cmhcTiers[k]; break; }
+    }
+    if (!tier) return res('ineligible', 0, 0, 0, 'Insurance tier unavailable');
+    var extended = years > R.insuredMaxAmortization;
+    if (extended && !(ftb && years <= R.insuredMaxAmortizationFirstTimeBuyer)) {
+      return res('ineligible', 0, 0, 0, 'Not eligible for a ' + years + '-year insured mortgage',
+        'Insured mortgages are capped at ' + R.insuredMaxAmortization + ' years. ' + R.insuredMaxAmortizationFirstTimeBuyer + ' years is only available to first-time buyers and new builds.');
+    }
+    var surcharge = extended ? R.insuredThirtyYearPremiumSurcharge : 0;
+    var rate = tier.rate + surcharge;
+    var premium = base * (rate / 100);
+    var pst = premium * (R.ontarioPSTOnInsurance / 100);
+    var warning = extended
+      ? years + '-year amortization adds a ' + surcharge.toFixed(2) + '% premium surcharge.'
+      : 'Insured mortgages are capped at ' + R.insuredMaxAmortization + '-year amortization (' + R.insuredMaxAmortizationFirstTimeBuyer + ' for first-time buyers and new builds).';
+    return res('insured', rate, premium, pst, pct.toFixed(1) + '% down — ' + rate.toFixed(2) + '% premium tier', warning);
+  }
+
+  /* ---------- price from a payment budget (HomePriceSolver) ---------- */
+  function solvePrice(o) {
+    var down = Math.max(0, o.down), years = o.amortizationYears, maxM = o.maxMortgage;
+    if (!(maxM > 0)) {
+      return { price: down, baseMortgage: 0, premium: 0, premiumRate: 0, isInsured: false, amortizationUsed: years, amortizationWasCapped: false };
+    }
+    var convLimit = down / (R.conventionalDownPercent / 100);
+    var simple = down + maxM;
+    if (simple <= convLimit) {
+      return { price: simple, baseMortgage: maxM, premium: 0, premiumRate: 0, isInsured: false, amortizationUsed: years, amortizationWasCapped: false };
+    }
+    var wantsExt = years > R.insuredMaxAmortization;
+    var extAllowed = wantsExt && !!o.isFirstTimeBuyer && years <= R.insuredMaxAmortizationFirstTimeBuyer;
+    var capped = wantsExt && !extAllowed;
+    var budget = capped ? o.maxMortgageAt25 : maxM;
+    var used = capped ? R.insuredMaxAmortization : years;
+    var surcharge = extAllowed ? R.insuredThirtyYearPremiumSurcharge : 0;
+
+    var cands = R.cmhcTiers.map(function (t) {
+      var rate = t.rate + surcharge, base = budget / (1 + rate / 100), price = down + base;
+      var pct = price > 0 ? down / price * 100 : 0;
+      return { price: price, rate: rate, matches: pct >= t.min && pct <= t.max };
+    });
+    var matching = cands.filter(function (c) { return c.matches; });
+    var chosen = matching.length
+      ? matching.reduce(function (a, b) { return b.price > a.price ? b : a; })
+      : cands.reduce(function (a, b) { return b.price < a.price ? b : a; });
+
+    if (chosen.price >= R.insuredPriceCeiling) {
+      var capPrice = Math.max(convLimit, R.insuredPriceCeiling - 1);
+      if (capPrice <= convLimit) {
+        return { price: capPrice, baseMortgage: capPrice - down, premium: 0, premiumRate: 0, isInsured: false, amortizationUsed: years, amortizationWasCapped: false };
+      }
+      var base2 = capPrice - down, pct2 = down / capPrice * 100, tier2 = null;
+      for (var k = 0; k < R.cmhcTiers.length; k++) {
+        if (pct2 >= R.cmhcTiers[k].min && pct2 <= R.cmhcTiers[k].max) { tier2 = R.cmhcTiers[k]; break; }
+      }
+      var rate2 = (tier2 ? tier2.rate : 0) + (tier2 ? surcharge : 0);
+      return { price: capPrice, baseMortgage: base2, premium: base2 * rate2 / 100, premiumRate: rate2, isInsured: rate2 > 0, amortizationUsed: used, amortizationWasCapped: capped };
+    }
+    var base3 = chosen.price - down;
+    return { price: chosen.price, baseMortgage: base3, premium: base3 * chosen.rate / 100, premiumRate: chosen.rate, isInsured: true, amortizationUsed: used, amortizationWasCapped: capped };
+  }
+
+  /* ---------- 01 Savings Readiness ---------- */
+  function readiness(i) {
+    var rent = num(i.monthlyRent), income = num(i.annualIncome), savings = num(i.currentSavings), monthly = num(i.monthlySavings);
+    var debts = num(i.monthlyDebts);
+    var tax = i.monthlyPropertyTax == null ? R.defaultMonthlyPropertyTax : num(i.monthlyPropertyTax);
+    var heat = i.monthlyHeating == null ? R.defaultMonthlyHeating : num(i.monthlyHeating);
+    var contract = R.defaultContractRate, qr = qualifyingRate(contract);
+    var mi = income / 12, overhead = tax + heat;
+    var gdsRoom = mi * (R.defaultGDSLimit / 100) - overhead;
+    var tdsRoom = mi * (R.defaultTDSLimit / 100) - overhead - debts;
+    var maxPayment = Math.max(0, Math.min(gdsRoom, tdsRoom));
+    var years = R.defaultAmortizationYears;
+    var maxMortgage = presentValue(maxPayment, qr, years, 12);
+    var out = solvePrice({ maxMortgage: maxMortgage, maxMortgageAt25: maxMortgage, down: savings, amortizationYears: years, isFirstTimeBuyer: false });
+    var price = out.price, minDown = minimumDownPayment(price), shortfall = Math.max(0, minDown - savings);
+    var months = shortfall <= 0 ? 0 : (monthly > 0 ? Math.ceil(shortfall / monthly) : null);
+    var futurePayment = paymentPPY(maxMortgage, contract, years, 12);
+    var housing = futurePayment + overhead;
+    return {
+      qualifyingRate: qr, maxMortgage: maxMortgage, estimatedHomePrice: price, minimumDownRequired: minDown,
+      shortfall: shortfall, monthsToGoal: months, alreadyReady: shortfall <= 0 && maxPayment > 0,
+      currentRent: rent, futureMortgagePayment: futurePayment, futureHousingCost: housing,
+      paymentVsRent: housing - rent, maxPayment: maxPayment, contractRate: contract
+    };
+  }
+
+  /* ---------- 02 Affordability ---------- */
+  function affordability(i) {
+    var income = num(i.annualIncome), debts = num(i.monthlyDebts), down = num(i.downPayment);
+    var years = i.amortizationYears == null ? R.defaultAmortizationYears : i.amortizationYears;
+    var contract = i.contractRate == null ? R.defaultContractRate : i.contractRate;
+    var qr = i.qualifyingRateOverride != null ? i.qualifyingRateOverride : qualifyingRate(contract);
+    var tax = i.monthlyPropertyTax == null ? R.defaultMonthlyPropertyTax : num(i.monthlyPropertyTax);
+    var heat = i.monthlyHeating == null ? R.defaultMonthlyHeating : num(i.monthlyHeating);
+    var condo = num(i.monthlyCondoFees);
+    var gds = i.gdsLimit == null ? R.defaultGDSLimit : i.gdsLimit, tds = i.tdsLimit == null ? R.defaultTDSLimit : i.tdsLimit;
+    var mi = income / 12, overhead = tax + heat + condo * 0.5;
+    var gdsRoom = mi * (gds / 100) - overhead;
+    var tdsRoom = mi * (tds / 100) - overhead - debts;
+    var maxPayment = Math.max(0, Math.min(gdsRoom, tdsRoom));
+    var binding = gdsRoom <= tdsRoom ? 'GDS (housing costs)' : 'TDS (total debt)';
+    var mortgage = function (y) { return presentValue(maxPayment, qr, y, 12); };
+    var maxMortgage = mortgage(years);
+    var out = solvePrice({ maxMortgage: maxMortgage, maxMortgageAt25: mortgage(R.insuredMaxAmortization), down: down, amortizationYears: years, isFirstTimeBuyer: !!i.isFirstTimeBuyer });
+    var price = out.price, minDown = minimumDownPayment(price);
+    var notes = [];
+    if (maxPayment <= 0) notes.push('Your existing housing costs and debts already exceed the allowable ratios at this income. Reducing monthly debts or increasing income is the fastest lever.');
+    if (down < minDown) notes.push('At this price, the legal minimum down payment is ' + money(minDown) + '. You’d need ' + money(minDown - down) + ' more, or to target a lower price.');
+    if (out.amortizationWasCapped) notes.push('A ' + years + '-year amortization with under 20% down is only available to first-time buyers and new builds. This estimate uses ' + out.amortizationUsed + ' years. Switch on first-time buyer if it applies to you.');
+    if (price >= R.insuredPriceCeiling - 1 && down < price * 0.20) notes.push('Mortgage insurance isn’t available at ' + money(R.insuredPriceCeiling) + ' or more, so the price is held just under that, or you’d need a 20% down payment.');
+    return {
+      qualifyingRate: qr, gdsLimit: gds, tdsLimit: tds, bindingConstraint: binding, maxMonthlyPayment: maxPayment,
+      maxMortgage: maxMortgage, baseMortgage: out.baseMortgage, insurancePremium: out.premium, premiumRate: out.premiumRate,
+      estimatedHomePrice: price, minimumDownRequired: minDown, downPaymentIsSufficient: down >= minDown,
+      amortizationUsed: out.amortizationUsed, notes: notes
+    };
+  }
+
+  /* ---------- 03 Payment ---------- */
+  function payment(i) {
+    var price = num(i.homePrice), down = num(i.downPayment);
+    var rate = i.interestRate == null ? R.defaultContractRate : i.interestRate;
+    var years = i.amortizationYears == null ? R.defaultAmortizationYears : i.amortizationYears;
+    var freq = i.frequency || 'monthly';
+    var f = FREQ[freq] || FREQ.monthly;
+    var base = Math.max(0, price - down);
+    var ins = insurance({ basePrincipal: base, purchasePrice: price, downPayment: down, amortizationYears: years, isFirstTimeBuyer: i.isFirstTimeBuyer });
+    var total = base + ins.premium;
+    var pmt = paymentFreq(total, rate, years, freq);
+    var periods = f.ppy;
+    var taxPer = num(i.annualPropertyTax) / periods;
+    var heatPer = (num(i.monthlyHeating) * 12) / periods;
+    var condoPer = (num(i.monthlyCondoFees) * 12) / periods;
+    var monthly = paymentPPY(total, rate, years, 12);
+    var totalPaid = monthly * years * 12;
+    return {
+      baseMortgage: base, insurance: ins, totalMortgage: total, mortgagePayment: pmt,
+      totalPayment: pmt + taxPer + heatPer + condoPer, frequency: freq,
+      totalInterestOverAmortization: Math.max(0, totalPaid - total), effectiveAnnualRate: effectiveAnnualRate(rate)
+    };
+  }
+
+  /* ---------- 04 Closing costs ---------- */
+  function closing(i) {
+    var price = num(i.purchasePrice), down = num(i.downPayment);
+    var legal = i.legalFees == null ? R.defaultLegalFees : num(i.legalFees);
+    var title = i.titleInsurance == null ? R.defaultTitleInsurance : num(i.titleInsurance);
+    var inspect = i.homeInspection == null ? R.defaultHomeInspection : num(i.homeInspection);
+    var appraisal = i.appraisal == null ? R.defaultAppraisal : num(i.appraisal);
+    var adjustments = i.adjustments == null ? R.defaultAdjustments : num(i.adjustments);
+    var toronto = !!i.isInToronto, ftb = !!i.isFirstTimeBuyer;
+    var single = i.isSingleFamily == null ? true : !!i.isSingleFamily;
+    var years = i.amortizationYears == null ? R.defaultAmortizationYears : i.amortizationYears;
+
+    var ont = marginalTax(price, R.ontarioLTT);
+    var ontReb = ftb ? Math.min(ont, R.ontarioFirstTimeBuyerMaxRebate) : 0;
+    var tor = toronto ? marginalTax(price, single ? R.torontoMLTT : R.torontoMLTTNonSingleFamily) : 0;
+    var torReb = (toronto && ftb) ? Math.min(tor, R.torontoFirstTimeBuyerMaxRebate) : 0;
+    var netLTT = (ont - ontReb) + (tor - torReb);
+
+    var base = Math.max(0, price - down);
+    var ins = insurance({ basePrincipal: base, purchasePrice: price, downPayment: down, amortizationYears: years, isFirstTimeBuyer: ftb });
+    var fees = legal + title + inspect + appraisal + adjustments;
+    var total = netLTT + ins.pst + fees;
+    return {
+      ontarioLTT: ont, ontarioRebate: ontReb, torontoLTT: tor, torontoRebate: torReb, netLandTransferTax: netLTT,
+      pstOnInsurance: ins.pst, professionalFees: fees, total: total, cashRequiredOnClosing: total + down, insurance: ins
+    };
+  }
+
+  /* ---------- 05 Down payment ---------- */
+  var COMPARED = [5, 10, 15, 20];
+
+  function maxPriceForDown(down) {
+    if (!(down > 0)) return 0;
+    var t = R.minDownTierThreshold, lo = R.minDownLowerRate, up = R.minDownUpperRate, ceil = R.insuredPriceCeiling;
+    var lowerTierDown = t * lo, topUpper = lowerTierDown + (ceil - t) * up;
+    if (down <= lowerTierDown) return down / lo;
+    if (down < topUpper) return t + (down - lowerTierDown) / up;
+    if (down < ceil * R.conventionalDownPercent / 100) return ceil;
+    return down / (R.conventionalDownPercent / 100);
+  }
+
+  function scenario(percent, i) {
+    var price = Math.max(0, num(i.homePrice));
+    var years = i.amortizationYears == null ? R.defaultAmortizationYears : i.amortizationYears;
+    var rate = i.interestRate == null ? R.defaultContractRate : i.interestRate;
+    var down = Math.ceil(price * percent / 100);          /* round up: never a dollar under the legal minimum */
+    var base = Math.max(0, price - down);
+    var minimum = minimumDownPayment(price);
+    var isLegal = price > 0 && down >= minimum;
+    var ins = insurance({ basePrincipal: base, purchasePrice: price, downPayment: down, amortizationYears: years, isFirstTimeBuyer: i.isFirstTimeBuyer });
+    var mortgage = base + ins.premium;
+    var monthly = paymentPPY(mortgage, rate, years, 12);
+    var c = closing({ purchasePrice: price, downPayment: down, isInToronto: i.isInToronto, isFirstTimeBuyer: i.isFirstTimeBuyer, isSingleFamily: i.isSingleFamily == null ? true : i.isSingleFamily, amortizationYears: years });
+    return { downPercent: percent, downPayment: down, isLegal: isLegal, premiumRate: ins.premiumRate, premium: ins.premium, pst: ins.pst, mortgage: mortgage, monthlyPayment: monthly, cashRequiredOnClosing: c.cashRequiredOnClosing };
+  }
+
+  function downPayment(i) {
+    var price = Math.max(0, num(i.homePrice)), savings = num(i.savings);
+    var minimum = minimumDownPayment(price);
+    var minPct = price > 0 ? minimum / price * 100 : 0;
+    var twenty = price * (R.conventionalDownPercent / 100);
+    var scenarios = COMPARED.map(function (p) { return scenario(p, i); });
+    var cashAtMin = scenario(minPct, i).cashRequiredOnClosing;
+    var shortfall = Math.max(0, minimum - savings);
+    var notes = [];
+    if (price <= 0) notes.push('Enter a home price to see the minimum down payment.');
+    if (price >= R.insuredPriceCeiling) notes.push('Homes at or above ' + money(R.insuredPriceCeiling) + ' need 20% down. Mortgage insurance isn’t available at this price.');
+    else if (minimum < twenty && price > 0) notes.push('At this price the minimum is ' + minPct.toFixed(2) + '%. Below 20% down, CMHC insurance is required — its premium is added to your mortgage and Ontario PST is paid in cash on closing.');
+    if (price > 0 && savings > 0) {
+      notes.push(shortfall <= 0 ? 'Your savings cover the minimum down payment for this price.'
+        : 'You’re ' + money(shortfall) + ' short of the minimum down payment for this price. Closing costs are on top of this.');
+    }
+    notes.push('Closing costs are not included in the down payment. They’re shown in the cash required column, and the first-time buyer rebates are applied where they apply.');
+    return {
+      homePrice: price, minimumDown: minimum, minimumDownPercent: minPct, minimumIsInsured: minPct < R.conventionalDownPercent,
+      cashAtMinimum: cashAtMin, twentyPercentDown: twenty, shortfall: shortfall, maxPriceForSavings: maxPriceForDown(savings),
+      scenarios: scenarios, notes: notes
+    };
+  }
+
+  /* ---------- helpers ---------- */
+  function num(v) { v = Number(v); return isFinite(v) ? v : 0; }
+  function money(n) {
+    var r = Math.round(Math.abs(n));
+    return (n < 0 && r !== 0 ? '−$' : '$') + r.toLocaleString('en-CA');
+  }
+
+  var API = {
+    RATES: R, FREQ: FREQ,
+    periodicRate: periodicRate, effectiveAnnualRate: effectiveAnnualRate, pmt: paymentPPY, presentValue: presentValue,
+    paymentFreq: paymentFreq, qualifyingRate: qualifyingRate, marginalTax: marginalTax, minimumDownPayment: minimumDownPayment,
+    insurance: insurance, solvePrice: solvePrice, readiness: readiness, affordability: affordability, payment: payment,
+    closing: closing, downPayment: downPayment, maxPriceForDown: maxPriceForDown, money: money
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  else root.GMCalc = API;
+})(typeof window !== 'undefined' ? window : this);
+
+</script>
+<script>
+/* Calculator cards: read the fields, call GMCalc (calc-core.js), draw the results.
+   All the maths lives in calc-core.js. Nothing here does arithmetic beyond formatting. */
+(function () {
+  var C = window.GMCalc, R = C.RATES;
+  var $ = function (id) { return document.getElementById(id); };
+  var num = function (id) { return parseFloat(String($(id).value).replace(/[^0-9.]/g, '')) || 0; };
+  var fmt = C.money;
+  var pct = function (n) { return n.toFixed(2) + '%'; };
+  var FREQ_LABEL = { monthly: 'Monthly', biweekly: 'Bi-weekly', accel_biweekly: 'Accel. Bi-weekly', weekly: 'Weekly', accel_weekly: 'Accel. Weekly' };
+
+  /* amortization dropdowns: 10 to 30 years, 25 selected */
+  ['a_amort', 'p_amort', 'c_amort'].forEach(function (id) {
+    var sel = $(id);
+    if (!sel || sel.options.length) return;
+    for (var y = 10; y <= 30; y++) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y + ' years';
+      if (y === 25) o.selected = true;
+      sel.appendChild(o);
+    }
+  });
+
+  /* A usable rate is above 0 and not absurd; a typed minus sign or 1e9 must not slip through. */
+  var RATE_MSG = 'Please enter an interest rate between 0.01% and 25%.';
+  function rateOk(r) { return isFinite(r) && r >= 0.01 && r <= 25; }
+
+  function row(k, v, cls) {
+    return '<div class="result-line"><span class="result-key">' + k + '</span><span class="result-val' + (cls ? ' ' + cls : '') + '">' + v + '</span></div>';
+  }
+  function note(t, cls) { return '<p class="calc-note' + (cls ? ' ' + cls : '') + '">' + t + '</p>'; }
+  function show(id, html) {
+    var el = $(id);
+    el.innerHTML = html;
+    el.classList.add('active');
+    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+  }
+  function fail(id, msg) { show(id, '<div class="result-error">' + msg + '</div>'); }
+
+  /* ---------- 01 Savings Readiness ---------- */
+  window.calcReadiness = function () {
+    var rent = num('r_rent'), income = num('r_income');
+    if (!income || !rent) return fail('r_results', 'Please enter your monthly rent and annual income.');
+    var r = C.readiness({
+      monthlyRent: rent, annualIncome: income, currentSavings: num('r_savings'), monthlySavings: num('r_monthly'),
+      monthlyDebts: num('r_debts'), monthlyPropertyTax: num('r_tax'), monthlyHeating: num('r_heat')
+    });
+    var time;
+    if (r.monthsToGoal === null) time = 'Add a monthly savings amount';
+    else if (r.monthsToGoal === 0) time = 'You’re ready now';
+    else if (r.monthsToGoal < 12) time = r.monthsToGoal + ' month' + (r.monthsToGoal === 1 ? '' : 's');
+    else time = r.monthsToGoal + ' months (~' + (r.monthsToGoal / 12).toFixed(1) + ' yrs)';
+    var html =
+      row('Est. Home Price You’d Qualify For', fmt(r.estimatedHomePrice), 'featured') +
+      row('Maximum Mortgage', fmt(r.maxMortgage)) +
+      row('Qualifying Rate Used', pct(r.qualifyingRate)) +
+      row('Minimum Down Payment Needed', fmt(r.minimumDownRequired)) +
+      row('Still to Save', fmt(r.shortfall)) +
+      row('Time to Your Down Payment', time) +
+      row('Your Rent Today', fmt(rent) + '/mo') +
+      row('Mortgage, Tax &amp; Heat Then', fmt(r.futureHousingCost) + '/mo', 'featured');
+    if (r.maxPayment <= 0) html += note('At this income, property tax, heating and debts already use up the allowable housing budget. Increasing income or lowering debts is the fastest lever.', 'warn');
+    if (r.alreadyReady) html += note('You already have enough for the minimum down payment at this price. The next step is a lender-verified pre-approval — free, and no credit pull until you say so.');
+    if (rent > 0 && r.paymentVsRent > 0) {
+      html += note('Your mortgage payment, property tax and heating would be about ' + fmt(r.paymentVsRent) + ' a month more than your rent today, at ' + pct(r.contractRate) + '. Budgeting that gap now is good practice, and it grows your down payment at the same time.');
+    } else if (rent > 0) {
+      html += note('Your mortgage payment, property tax and heating would be about ' + fmt(-r.paymentVsRent) + ' a month less than your rent today, at ' + pct(r.contractRate) + '.');
+    }
+    show('r_results', html);
+  };
+
+  /* ---------- 02 Affordability ---------- */
+  $('a_rate').addEventListener('input', function () {
+    var v = parseFloat(this.value);
+    $('a_stress_val').textContent = rateOk(v) ? pct(C.qualifyingRate(v)) : '\u2014';
+  });
+  window.calcAfford = function () {
+    var income = num('a_income'), rate = parseFloat($('a_rate').value);
+    if (!income) return fail('a_results', 'Please enter your annual income.');
+    if (!rateOk(rate)) return fail('a_results', RATE_MSG);
+    var r = C.affordability({
+      annualIncome: income, monthlyDebts: num('a_debts'), downPayment: num('a_down'),
+      amortizationYears: parseInt($('a_amort').value, 10) || 25, contractRate: rate,
+      monthlyPropertyTax: num('a_tax'), monthlyHeating: num('a_heat'), monthlyCondoFees: num('a_condo'),
+      isFirstTimeBuyer: $('a_ftb').checked
+    });
+    if (r.maxMonthlyPayment <= 0) return fail('a_results', 'Debt load or expenses exceed qualifying limits at this income.');
+    var html =
+      row('Qualifying Rate Used', pct(r.qualifyingRate) + ' (OSFI auto)') +
+      row('Limiting Test', r.bindingConstraint) +
+      row('Max Monthly Mortgage Pmt', fmt(r.maxMonthlyPayment) + '/mo') +
+      row('Maximum Mortgage', fmt(r.maxMortgage), 'featured') +
+      row('Base Mortgage', fmt(r.baseMortgage)) +
+      row('Mortgage Insurance (CMHC)', r.premiumRate > 0 ? fmt(r.insurancePremium) + ' (' + r.premiumRate.toFixed(2) + '%)' : 'None — 20% or more down') +
+      row('Estimated Home Price', fmt(r.estimatedHomePrice), 'featured') +
+      row('Minimum Down Payment at That Price', fmt(r.minimumDownRequired));
+    r.notes.forEach(function (n) { html += note(n, 'warn'); });
+    show('a_results', html);
+  };
+
+  /* ---------- down payment hints (Payment and Closing cards) ---------- */
+  function hint(priceId, downId, hintId, amortId, ftbId, idleText) {
+    var h = $(hintId); if (!h) return;
+    var price = num(priceId), down = num(downId);
+    if (!price || !down) { h.className = 'form-hint'; h.textContent = idleText; return; }
+    var ins = C.insurance({ basePrincipal: Math.max(0, price - down), purchasePrice: price, downPayment: down,
+      amortizationYears: parseInt($(amortId).value, 10) || 25, isFirstTimeBuyer: $(ftbId).checked });
+    if (ins.status === 'conventional') { h.className = 'form-hint'; h.textContent = '✓ ' + ins.tierDescription; }
+    else if (ins.status === 'ineligible') { h.className = 'form-hint notice'; h.textContent = ins.warning || ins.tierDescription; }
+    else if (ins.status === 'insured') { h.className = 'form-hint'; h.textContent = 'Mortgage insurance: ' + ins.tierDescription; }
+    else { h.className = 'form-hint'; h.textContent = idleText; }
+  }
+  function wireHint(priceId, downId, hintId, amortId, ftbId, idleText) {
+    var run = function () { hint(priceId, downId, hintId, amortId, ftbId, idleText); };
+    [priceId, downId].forEach(function (id) { $(id).addEventListener('input', run); $(id).addEventListener('blur', run); });
+    [amortId, ftbId].forEach(function (id) { $(id).addEventListener('change', run); });
+    run();
+  }
+  wireHint('p_price', 'p_down', 'p_cmhc_hint', 'p_amort', 'p_ftb', 'Enter price and down payment to see insurance tier');
+  wireHint('c_price', 'c_down', 'c_down_hint', 'c_amort', 'c_ftb', '');
+
+  /* ---------- 03 Payment ---------- */
+  window.calcPayment = function () {
+    var price = num('p_price'), rate = parseFloat($('p_rate').value), down = num('p_down');
+    if (!price) return fail('p_results', 'Please enter a home price.');
+    if (!rateOk(rate)) return fail('p_results', RATE_MSG);
+    if (down >= price) return fail('p_results', 'Down payment cannot equal or exceed home price.');
+    var freq = $('p_freq').value;
+    var r = C.payment({
+      homePrice: price, downPayment: down, interestRate: rate, amortizationYears: parseInt($('p_amort').value, 10) || 25,
+      frequency: freq, annualPropertyTax: num('p_tax'), monthlyHeating: num('p_heat'), monthlyCondoFees: num('p_condo'),
+      isFirstTimeBuyer: $('p_ftb').checked
+    });
+    var ins = r.insurance;
+    if (ins.status === 'ineligible') return fail('p_results', (ins.warning || ins.tierDescription));
+    var label = FREQ_LABEL[freq];
+    var html =
+      row('Base Mortgage', fmt(r.baseMortgage)) +
+      row('Mortgage Insurance (CMHC)', ins.premium > 0 ? fmt(ins.premium) + ' (' + ins.premiumRate.toFixed(2) + '%)' : 'None — 20% or more down') +
+      (ins.pst > 0 ? row('PST on Insurance (paid at closing)', fmt(ins.pst)) : '') +
+      row('Total Insured Mortgage', fmt(r.totalMortgage)) +
+      row('Mortgage Payment', label + ': ' + fmt(r.mortgagePayment), 'featured') +
+      row('Total Pmt (incl. tax, heat &amp; condo)', label + ': ' + fmt(r.totalPayment), 'featured') +
+      row('Interest Over the Full Amortization', fmt(r.totalInterestOverAmortization));
+    if (ins.warning) html += note(ins.warning);
+    html += note('Interest over the full amortization assumes this rate holds for the whole term, which it won’t. It is the standard comparison figure.');
+    show('p_results', html);
+  };
+
+  /* ---------- 04 Closing costs ---------- */
+  function syncSingle(torontoId, wrapId) {
+    $(torontoId).addEventListener('change', function () { $(wrapId).hidden = !this.checked; });
+    $(wrapId).hidden = !$(torontoId).checked;
+  }
+  syncSingle('c_toronto', 'c_single_wrap');
+  syncSingle('dp_toronto', 'dp_single_wrap');
+
+  window.calcClosing = function () {
+    var price = num('c_price');
+    if (!price) return fail('c_results', 'Please enter a purchase price.');
+    var toronto = $('c_toronto').checked, ftb = $('c_ftb').checked;
+    var r = C.closing({
+      purchasePrice: price, downPayment: num('c_down'), legalFees: num('c_legal'), titleInsurance: num('c_title'),
+      homeInspection: num('c_inspect'), appraisal: num('c_appraisal'), adjustments: num('c_adjust'),
+      isInToronto: toronto, isFirstTimeBuyer: ftb, isSingleFamily: $('c_single').checked,
+      amortizationYears: parseInt($('c_amort').value, 10) || 25
+    });
+    var rebates = r.ontarioRebate + r.torontoRebate;
+    var html =
+      row('Ontario Land Transfer Tax', fmt(r.ontarioLTT)) +
+      row('Toronto Land Transfer Tax', toronto ? fmt(r.torontoLTT) : 'N/A — outside Toronto') +
+      row('First-Time Buyer Rebates', rebates > 0 ? '− ' + fmt(rebates) : 'None') +
+      row('Professional Fees', fmt(r.professionalFees)) +
+      row('Ontario PST on Mortgage Insurance', r.pstOnInsurance > 0 ? fmt(r.pstOnInsurance) : 'None') +
+      row('Total Closing Costs', fmt(r.total), 'featured') +
+      row('Cash Needed on Closing Day', fmt(r.cashRequiredOnClosing), 'featured');
+    html += note('Cash needed on closing day is your down payment plus the closing costs above.');
+    if (r.insurance.status === 'ineligible') html += note(r.insurance.warning + ' PST on insurance is left out until the down payment is valid.', 'warn');
+    show('c_results', html);
+  };
+
+  /* ---------- 05 Down Payment ---------- */
+  window.calcDownPayment = function () {
+    var price = num('dp_price');
+    if (!price) return fail('dp_results', 'Please enter a home price.');
+    var savings = num('dp_savings'), rate = parseFloat($('dp_rate').value);
+    if (!rateOk(rate)) return fail('dp_results', RATE_MSG);
+    var r = C.downPayment({
+      homePrice: price, savings: savings, interestRate: rate, amortizationYears: parseInt($('dp_amort').value, 10) || 25,
+      isInToronto: $('dp_toronto').checked, isFirstTimeBuyer: $('dp_ftb').checked, isSingleFamily: $('dp_single').checked
+    });
+    var html =
+      row('Minimum Down Payment', fmt(r.minimumDown) + ' (' + r.minimumDownPercent.toFixed(2) + '%)', 'featured') +
+      row('Down Payment for 20% (no insurance)', fmt(r.twentyPercentDown));
+    if (savings > 0) {
+      html += row('Still Needed for the Minimum', fmt(r.shortfall));
+      html += row('Most Home Your Savings Support', fmt(r.maxPriceForSavings));
+    }
+    html += row('Cash Needed at the Minimum (incl. closing)', fmt(r.cashAtMinimum), 'featured');
+    html += '<div class="scen-grid">' + r.scenarios.map(function (s) {
+      var head = '<h4>' + s.downPercent + '% down</h4><div class="scen-sub">' + fmt(s.downPayment) + '</div>';
+      if (!s.isLegal) return '<div class="scen off">' + head + '<div class="scen-off">Below the legal minimum for this price</div></div>';
+      var ins = s.premium > 0 ? fmt(s.premium) + ' (' + s.premiumRate.toFixed(2) + '%)' : 'None';
+      return '<div class="scen">' + head +
+        '<div class="scen-row"><span>CMHC premium</span><b>' + ins + '</b></div>' +
+        '<div class="scen-row"><span>PST at closing</span><b>' + (s.pst > 0 ? fmt(s.pst) : 'None') + '</b></div>' +
+        '<div class="scen-row"><span>Mortgage</span><b>' + fmt(s.mortgage) + '</b></div>' +
+        '<div class="scen-row"><span>Monthly payment</span><b>' + fmt(s.monthlyPayment) + '</b></div>' +
+        '<div class="scen-row scen-total"><span>Cash to close</span><b>' + fmt(s.cashRequiredOnClosing) + '</b></div></div>';
+    }).join('') + '</div>';
+    r.notes.forEach(function (n) { html += note(n); });
+    show('dp_results', html);
+  };
+
+  /* Enter in any field of a card presses that card's button */
+  document.querySelectorAll('.calc-card input').forEach(function (inp) {
+    inp.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { var b = inp.closest('.calc-card').querySelector('.calc-btn'); if (b) b.click(); }
+    });
+  });
+})();
+
+</script>
+<script>
+/* HERO STAGE: full-bleed photos of homes.
+   Each house arrives zoomed in on one detail, then pulls back and away like a drone until
+   the whole house is in frame. A band of the brand blue sweeps across to bring in the next
+   house. The first house is there from the first frame; the loop never goes to black.
+   Plain SVG + requestAnimationFrame. No libraries, no video. */
+(function () {
+  var stage = document.querySelector('.stage');
+  if (!stage) return;
+  var art = stage.querySelector('.stage-art');
+
+  /* focus: the detail the shot opens on, as a fraction of the photo.
+     z0: how far in it starts (kept lower for the smaller photo so it stays sharp).
+     ay: where the photo sits vertically in the panel when it is cropped (0 top, 1 bottom). */
+  var PHOTOS = [
+    { src: 'img/home-night.jpg',  w: 1920, h: 1263, focus: [0.44, 0.60], z0: 1.9, ay: 0.50 },
+    { src: 'img/home-estate.jpg', w: 1920, h: 1281, focus: [0.69, 0.66], z0: 1.9, ay: 0.50 },
+    { src: 'img/home-forest.jpg', w: 1024, h: 1024, focus: [0.50, 0.66], z0: 1.45, ay: 0.28 }
+  ];
+  var LIQUID = ['#8cc4ff', '#0071e3'];          /* the site's own blue, light to full */
+  var SWEEP = 2.4, HOLD = 2.6;
+  var PULL = SWEEP + HOLD;                      /* seconds each house takes to pull back */
+  var NS = 'http://www.w3.org/2000/svg';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* A photo that fails to load is dropped, so the loop never lands on an empty frame. */
+  PHOTOS.slice().forEach(function (p) {
+    var im = new Image();
+    im.onerror = function () {
+      var i = PHOTOS.indexOf(p);
+      if (i > -1) PHOTOS.splice(i, 1);
+      lastIdx = -1;
+      if (!PHOTOS.length) svg.style.display = 'none';
+    };
+    im.src = p.src;
+  });
+
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+
+  var svg = el('svg', { role: 'img', 'aria-label': 'Ontario homes, each shown from a close detail pulling back to the full house', preserveAspectRatio: 'none' }, art);
+  var defs = el('defs', {}, svg);
+
+  var liq = el('linearGradient', { id: 'stLiq', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+  el('stop', { offset: 0, 'stop-color': LIQUID[0] }, liq);
+  el('stop', { offset: 1, 'stop-color': LIQUID[1] }, liq);
+  var clipTo = el('clipPath', { id: 'stClipTo' }, defs), toPath = el('path', {}, clipTo);
+  var clipBand = el('clipPath', { id: 'stClipBand' }, defs), bandPath = el('path', {}, clipBand);
+
+  /* layers, bottom to top: the previous house, the blue band, the new house */
+  var fromImg = el('image', { preserveAspectRatio: 'none' }, svg);
+  var band = el('rect', { 'clip-path': 'url(#stClipBand)', fill: 'url(#stLiq)' }, svg);
+  /* the clip lives on a wrapper so the zoom on the photo never moves the wave */
+  var toG = el('g', { 'clip-path': 'url(#stClipTo)' }, svg);
+  var toImg = el('image', { preserveAspectRatio: 'none' }, toG);
+
+  var W = 0, H = 0;
+  function size() {
+    var r = art.getBoundingClientRect();
+    W = Math.max(1, r.width); H = Math.max(1, r.height);
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    band.setAttribute('width', W); band.setAttribute('height', H);
+    if (reduce) placeStill();
+  }
+
+  /* Where a photo sits in the panel (cover fit, biased by ay), and the photo's size there. */
+  function fit(p) {
+    var sc = Math.max(W / p.w, H / p.h), dw = p.w * sc, dh = p.h * sc;
+    return { x: (W - dw) * 0.5, y: (H - dh) * p.ay, dw: dw, dh: dh };
+  }
+  function place(img, p, tau) {
+    var f = fit(p);
+    img.setAttribute('x', f.x); img.setAttribute('y', f.y);
+    img.setAttribute('width', f.dw); img.setAttribute('height', f.dh);
+
+    /* e: 0 at the start of the shot, 1 once the pull-back has finished.
+       Half steady glide, half ease-out: moving the whole time, settling gently at the end. */
+    var x = Math.min(1, tau / PULL);
+    var e = 0.5 * x + 0.5 * (1 - (1 - x) * (1 - x));
+    var z = 1 + (p.z0 - 1) * (1 - e);
+
+    /* the view starts centred on the detail and drifts back to the middle of the panel */
+    var fx = f.x + p.focus[0] * f.dw, fy = f.y + p.focus[1] * f.dh;
+    var cx = fx + (W / 2 - fx) * e, cy = fy + (H / 2 - fy) * e;
+    var hx = W / (2 * z), hy = H / (2 * z);               /* half the visible area, in photo pixels */
+    cx = Math.min(Math.max(cx, f.x + hx), f.x + f.dw - hx);
+    cy = Math.min(Math.max(cy, f.y + hy), f.y + f.dh - hy);
+    img.setAttribute('transform', 'translate(' + W / 2 + ',' + H / 2 + ') scale(' + z + ') translate(' + (-cx) + ',' + (-cy) + ')');
+  }
+
+  function wave(front, phase, amp) {
+    var slant = -0.3, left = -600, d = 'M' + left + ',-10';
+    var k = 600 / Math.max(300, H);
+    for (var y = -10; y <= H + 10; y += 6) {
+      var wob = Math.sin(y * 0.018 * k + phase) + 0.5 * Math.sin(y * 0.043 * k - phase * 1.7);
+      d += 'L' + (front + amp * wob + slant * (y - H / 2)).toFixed(1) + ',' + y;
+    }
+    return d + 'L' + left + ',' + (H + 10) + 'Z';
+  }
+  function ease(x) { return 0.5 - 0.5 * Math.cos(Math.PI * x); }
+
+  var lastIdx = -1;
+  function setPhoto(img, p) {
+    if (img.getAttribute('href') !== p.src) img.setAttribute('href', p.src);
+  }
+
+  function draw(t) {
+    var N = PHOTOS.length;
+    if (!N) return;
+    var local = t % (N * PULL), idx = Math.min(N - 1, Math.floor(local / PULL));
+    local -= idx * PULL;
+    /* The very first house is simply there: no sweep on load. Every later house, including
+       the first one coming round again, is brought in by the blue band. */
+    var p = (t < PULL || N === 1) ? 1 : ease(Math.min(1, local / SWEEP));
+    var from = PHOTOS[(idx + N - 1) % N], to = PHOTOS[idx];
+
+    if (idx !== lastIdx) {
+      lastIdx = idx;
+      setPhoto(fromImg, from); setPhoto(toImg, to);
+    }
+    place(fromImg, from, PULL);                 /* the house we are leaving is already pulled back */
+    place(toImg, to, local);
+
+    var amp = H * 0.05, bandW = W * 0.16;
+    var lo = -amp - 24, hi = W + bandW + amp + 24;
+    var f = lo + (hi - lo) * p, trailing = f - bandW;
+    bandPath.setAttribute('d', wave(f, t * 2.4, amp));
+    toPath.setAttribute('d', wave(trailing, -t * 1.9 + 1.3, amp * 0.8));
+  }
+
+  /* Reduce Motion: no sweep and no camera move. The houses simply cross-fade, framed whole. */
+  var stillIndex = 0;
+  function placeStill() {
+    var N = PHOTOS.length;
+    if (!N) return;
+    place(toImg, PHOTOS[stillIndex % N], PULL);
+    place(fromImg, PHOTOS[(stillIndex + N - 1) % N], PULL);
+  }
+  function still() {
+    band.style.display = 'none';
+    toG.removeAttribute('clip-path');
+    if (PHOTOS.length) setPhoto(toImg, PHOTOS[0]);
+    fromImg.style.display = 'none';
+    toImg.style.transition = 'opacity 1.2s ease';
+    placeStill();
+    setInterval(function () {
+      var N = PHOTOS.length;
+      if (userPaused || N < 2) return;
+      fromImg.style.display = '';
+      setPhoto(fromImg, PHOTOS[stillIndex % N]);
+      stillIndex++;
+      toImg.style.transition = 'none'; toImg.style.opacity = 0;
+      setPhoto(toImg, PHOTOS[stillIndex % N]);
+      placeStill();
+      void toImg.getBoundingClientRect();
+      toImg.style.transition = 'opacity 1.2s ease'; toImg.style.opacity = 1;
+    }, 5000);
+  }
+
+  var running = true, userPaused = false, tv = 0, last = null;
+  function loop(now) {
+    var live = running && !userPaused;
+    if (last != null && live) tv += Math.min(0.1, (now - last) / 1000);
+    last = now;
+    if (live) draw(tv);
+    requestAnimationFrame(loop);
+  }
+
+  /* Pause / play. Works for the sweep and for the reduced-motion cross-fade alike. */
+  var pauseBtn = art.querySelector('.stage-pause');
+  if (pauseBtn) pauseBtn.addEventListener('click', function () {
+    userPaused = !userPaused;
+    pauseBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+    pauseBtn.setAttribute('aria-label', userPaused ? 'Play animation' : 'Pause animation');
+  });
+
+  size();
+  if (window.ResizeObserver) new ResizeObserver(size).observe(art); else window.addEventListener('resize', size);
+  if (reduce) { still(); }
+  else {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { running = e[0].isIntersecting; }, { threshold: 0 }).observe(art);
+    }
+    /* Draw the opening frame now, under the poster, then start the clock once the first photo
+       can be drawn, so a slow connection never shows it popping in. */
+    draw(0);
+    var started = false;
+    var begin = function () { if (!started) { started = true; requestAnimationFrame(loop); } };
+    var first = new Image();
+    first.src = PHOTOS.length ? PHOTOS[0].src : '';
+    (first.decode ? first.decode() : Promise.resolve()).then(begin, begin);
+    setTimeout(begin, 2500);
+  }
+})();
+
 </script>
 </body>
 </html>
